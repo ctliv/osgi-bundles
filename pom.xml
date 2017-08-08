@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.ctliv</groupId>
+	<artifactId>osgi-bundles</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>OSGi Bundles</name>
+	<description>Dependencies wrapped into bundles</description>
+	<packaging>pom</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>		
+	</properties>
+	
+	<modules>
+		<module>yuicompressor</module>
+		<module>sac</module>
+	</modules>
+
+	<!--
+	<repositories>
+		<repository>
+			<id>ctliv-public-repo</id>
+			<url>https://ctliv.github.io/m2</url>
+		</repository>
+	</repositories>
+	-->
+
+	<distributionManagement>
+		<repository>
+			<id>ctliv-public-repo</id>
+			<name>Ctliv Public Repository</name>
+			<url>https://ctliv.github.io/m2/</url>
+		</repository>
+	</distributionManagement>
+
+	<build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>3.3.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<manifestLocation>META-INF</manifestLocation>
+                        <!-- This is included as a best practice, by default this plugin 
+                        will expose all <groupId>.<artifactId>.* packages. In our case, we do not want to expose 
+                        any packages.-->
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Version>${project.version}</Bundle-Version>
+<!-- 						<Bundle-RequiredExecutionEnvironment>J2SE-1.8</Bundle-RequiredExecutionEnvironment> -->
+						<Private-Package>${private.package}</Private-Package>
+						<Import-Package>${import.package}</Import-Package>
+						<Export-Package>${export.package}</Export-Package>
+<!-- 						<_split-package>merge-first</_split-package> -->
+<!-- 						<_exportcontents>*</_exportcontents> -->
+<!--						<Bundle-Activator></Bundle-Activator> -->
+						<Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
+						<Embed-Transitive>true</Embed-Transitive>
+					</instructions>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8.2</version>
+				<configuration>
+					<altDeploymentRepository>private-local-repo::default::file://${private.local.repo}</altDeploymentRepository>
+					<uniqueVersion>false</uniqueVersion>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+	</build>
+
+</project>

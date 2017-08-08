@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+    <parent>
+        <groupId>com.ctliv</groupId>
+        <artifactId>osgi-bundles</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+    </parent>	
+
+	<groupId>com.yahoo.platform.yui</groupId>
+	<artifactId>yuicompressor-bundle</artifactId>
+	<version>2.4.8</version>
+	<description>Bundle of Yahoo yuicompressor</description>
+	<packaging>bundle</packaging>
+
+	<properties>
+		<private.package>
+		</private.package>
+		<import.package>*</import.package>
+		<export.package>
+			com.yahoo.platform.yui.compressor;version="${project.version}",
+			org.mozilla.javascript.*;version="${project.version}"
+		</export.package>
+	</properties>
+
+	<!--
+	<repositories>
+		<repository>
+			<id>ctliv-public-repo</id>
+			<url>https://ctliv.github.io/m2</url>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>ctliv-public-repo</id>
+			<name>Ctliv Public Repository</name>
+			<url>https://ctliv.github.io/m2/</url>
+		</repository>
+	</distributionManagement>
+	-->
+
+	<dependencies>
+
+ 		<dependency>
+ 			<groupId>com.yahoo.platform.yui</groupId>
+ 			<artifactId>yuicompressor</artifactId>
+ 			<version>2.4.8</version>
+ 			<exclusions>
+ 				<exclusion>
+ 					<groupId>rhino</groupId>
+ 					<artifactId>js</artifactId>
+ 				</exclusion>
+ 			</exclusions>
+ 		</dependency>
+
+	</dependencies>
+
+</project>
