@@ -9,19 +9,26 @@
 		<version>0.0.1-SNAPSHOT</version>
     </parent>	
 
-	<groupId>org.w3c.css</groupId>
-	<artifactId>sac-bundle</artifactId>
-	<version>1.3</version>
-	<description>Bundle of W3C Sac</description>
+	<groupId>com.liferay.portal</groupId>
+	<artifactId>com.liferay.util.slf4j-mod</artifactId>
+	<version>1.0.1</version>
+	<description>Bundle of Liferay slf4j bridge that exports also org.slf4j.impl</description>
 	<packaging>bundle</packaging>
 
 	<properties>
+		<import.package>
+			com.liferay.portal.kernel.log,
+			org.slf4j;resolution:=optional,
+			org.slf4j.helpers;resolution:=optional,
+			org.slf4j.spi;resolution:=optional,
+			*
+		</import.package>
+		<export.package>
+			com.liferay.util.slf4j;version="${project.version}",
+			org.slf4j.impl
+		</export.package>
 		<private.package>
 		</private.package>
-		<import.package>*</import.package>
-		<export.package>
-			org.w3c.css.sac.*;version="${project.version}"
-		</export.package>
 	</properties>
 
 	<!--
@@ -44,8 +51,8 @@
 	<dependencies>
 
  		<dependency>
- 			<groupId>org.w3c.css</groupId>
- 			<artifactId>sac</artifactId>
+ 			<groupId>com.liferay.portal</groupId>
+ 			<artifactId>com.liferay.util.slf4j</artifactId>
  			<version>${project.version}</version>
  		</dependency>
 

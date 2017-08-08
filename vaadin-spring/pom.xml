@@ -9,10 +9,10 @@
 		<version>0.0.1-SNAPSHOT</version>
     </parent>	
 
-	<groupId>com.yahoo.platform.yui</groupId>
-	<artifactId>yuicompressor-bundle</artifactId>
-	<version>2.4.8</version>
-	<description>Bundle of Yahoo yuicompressor</description>
+	<groupId>com.vaadin</groupId>
+	<artifactId>vaadin-spring-bundle</artifactId>
+	<version>2.0.1</version>
+	<description>Bundle of W3C Sac</description>
 	<packaging>bundle</packaging>
 
 	<properties>
@@ -20,8 +20,7 @@
 		</private.package>
 		<import.package>*</import.package>
 		<export.package>
-			com.yahoo.platform.yui.compressor;version="${project.version}",
-			org.mozilla.javascript.*;version="${project.version}"
+			com.vaadin.spring.*;version="${project.version}"
 		</export.package>
 	</properties>
 
@@ -45,13 +44,37 @@
 	<dependencies>
 
  		<dependency>
- 			<groupId>com.yahoo.platform.yui</groupId>
- 			<artifactId>yuicompressor</artifactId>
+ 			<groupId>com.vaadin</groupId>
+ 			<artifactId>vaadin-spring</artifactId>
  			<version>${project.version}</version>
  			<exclusions>
  				<exclusion>
- 					<groupId>rhino</groupId>
- 					<artifactId>js</artifactId>
+ 					<groupId>com.vaadin</groupId>
+ 					<artifactId>vaadin-server</artifactId>
+ 				</exclusion>
+ 				<exclusion>
+ 					<groupId>org.springframework</groupId>
+ 					<artifactId>spring-core</artifactId>
+ 				</exclusion>
+ 				<exclusion>
+ 					<groupId>org.springframework</groupId>
+ 					<artifactId>spring-context</artifactId>
+ 				</exclusion>
+ 				<exclusion>
+ 					<groupId>org.springframework</groupId>
+ 					<artifactId>spring-aop</artifactId>
+ 				</exclusion>
+ 				<exclusion>
+ 					<groupId>org.springframework</groupId>
+ 					<artifactId>spring-beans</artifactId>
+ 				</exclusion>
+ 				<exclusion>
+ 					<groupId>org.springframework</groupId>
+ 					<artifactId>spring-expression</artifactId>
+ 				</exclusion>
+ 				<exclusion>
+ 					<groupId>org.springframework</groupId>
+ 					<artifactId>spring-web</artifactId>
  				</exclusion>
  			</exclusions>
  		</dependency>
