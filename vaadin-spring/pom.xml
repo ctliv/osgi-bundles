@@ -18,7 +18,14 @@
 	<properties>
 		<private.package>
 		</private.package>
-		<import.package>*</import.package>
+		<import.package>
+			org.springframework.cglib.core;version="[4,5)",
+			org.springframework.cglib.proxy;version="[4,5)",
+			org.springframework.cglib.reflect;version="[4,5)",
+			org.springframework.beans;version="[4,5)",
+			org.springframework.beans.factory;version="[4,5)",
+			*
+		</import.package>
 		<export.package>
 			com.vaadin.spring.*;version="${project.version}"
 		</export.package>
