@@ -25,24 +25,8 @@
 		<module>error_prone_annotations</module>
 		<module>j2objc-annotations</module>
 		<module>jsr305</module>
+		<module>autocomplete</module>
 	</modules>
-
-	<!--
-	<repositories>
-		<repository>
-			<id>ctliv-public-repo</id>
-			<url>https://ctliv.github.io/m2</url>
-		</repository>
-	</repositories>
-	-->
-
-	<distributionManagement>
-		<repository>
-			<id>ctliv-public-repo</id>
-			<name>Ctliv Public Repository</name>
-			<url>https://ctliv.github.io/m2/</url>
-		</repository>
-	</distributionManagement>
 
 	<build>
         <resources>
@@ -70,19 +54,13 @@
 				<configuration>
 					<instructions>
 						<manifestLocation>META-INF</manifestLocation>
-                        <!-- This is included as a best practice, by default this plugin 
-                        will expose all <groupId>.<artifactId>.* packages. In our case, we do not want to expose 
-                        any packages.-->
 						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Version>${project.version}</Bundle-Version>
-<!-- 						<Bundle-RequiredExecutionEnvironment>J2SE-1.8</Bundle-RequiredExecutionEnvironment> -->
+						<Bundle-RequiredExecutionEnvironment>JavaSE-1.8</Bundle-RequiredExecutionEnvironment>
 						<Private-Package>${private.package}</Private-Package>
 						<Import-Package>${import.package}</Import-Package>
 						<Export-Package>${export.package}</Export-Package>
-<!-- 						<_split-package>merge-first</_split-package> -->
-<!-- 						<_exportcontents>*</_exportcontents> -->
-<!--						<Bundle-Activator></Bundle-Activator> -->
 						<Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
 						<Embed-Transitive>true</Embed-Transitive>
 					</instructions>
