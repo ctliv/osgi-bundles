@@ -10,11 +10,12 @@
     </parent>	
 
 	<groupId>org.vaadin.addons</groupId>
-	<artifactId>autocomplete-bundle</artifactId>
+	<artifactId>${artifactName}-bundle</artifactId>
 	<version>0.2.2</version>
 	<packaging>bundle</packaging>
 
 	<properties>
+		<artifactName>autocomplete</artifactName>
 		<import.package>*</import.package>
 		<export.package>
 			org.vaadin.addons.autocomplete*;version="${project.version}"
@@ -31,7 +32,7 @@
 	<dependencies>
  		<dependency>
  			<groupId>${project.groupId}</groupId>
- 			<artifactId>autocomplete</artifactId>
+ 			<artifactId>${artifactName}</artifactId>
  			<version>${project.version}</version>
  		</dependency>
 	</dependencies>
