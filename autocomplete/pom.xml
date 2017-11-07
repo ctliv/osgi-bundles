@@ -16,7 +16,12 @@
 
 	<properties>
 		<artifactName>autocomplete</artifactName>
-		<import.package>*</import.package>
+		<import.package>
+			!com.google.gwt.*,
+			!elemental.events,
+			!com.vaadin.client.*,
+			*
+		</import.package>
 		<export.package>
 			org.vaadin.addons.autocomplete*;version="${project.version}"
 		</export.package>
