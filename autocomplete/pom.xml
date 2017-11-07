@@ -2,20 +2,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
-    <parent>
-        <groupId>com.ctliv</groupId>
-        <artifactId>osgi-bundles</artifactId>
+
+	<parent>
+		<groupId>com.ctliv</groupId>
+		<artifactId>osgi-bundles</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-    </parent>	
+	</parent>
 
 	<groupId>org.vaadin.addons</groupId>
-	<artifactId>${artifactName}-bundle</artifactId>
+	<artifactId>autocomplete-bundle</artifactId>
 	<version>0.2.2</version>
 	<packaging>bundle</packaging>
 
 	<properties>
 		<artifactName>autocomplete</artifactName>
+		<vaadin.version>8.1.6</vaadin.version>
+		<vaadin.scope>provided</vaadin.scope>
 		<import.package>
 			!com.google.gwt.*,
 			!com.vaadin.client.*,
@@ -25,7 +27,7 @@
 			org.vaadin.addons.autocomplete*;version="${project.version}"
 		</export.package>
 	</properties>
-	
+
 	<repositories>
 		<repository>
 			<id>vaadin-addons</id>
@@ -33,12 +35,43 @@
 		</repository>
 	</repositories>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.vaadin</groupId>
+				<artifactId>vaadin-bom</artifactId>
+				<version>${vaadin.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
- 		<dependency>
- 			<groupId>${project.groupId}</groupId>
- 			<artifactId>${artifactName}</artifactId>
- 			<version>${project.version}</version>
- 		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>autocomplete</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- Vaadin -->
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-server</artifactId>
+			<scope>${vaadin.scope}</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-client-compiled</artifactId>
+			<scope>${vaadin.scope}</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-themes</artifactId>
+			<scope>${vaadin.scope}</scope>
+		</dependency>
+		
 	</dependencies>
 
 </project>
