@@ -1,35 +1,16 @@
-# Exclude settings files and directories (e.g.: Eclipse)
-\.*/
-\.*
-
-# Keep .gitignore file
+# Hidden folders
+**/\.*/
+# Hidden files (except ".gitignore")
+**/\.*
 !\.gitignore
 
-# Exclude all directories named "target"
+# Maven
 **/target/
 
-**/*.iml
-**/.ivy
-**/.classpath
-**/.project
-**/.sass-cache
-**/.settings
-**/bin
-**/build
-**/build_gradle
-**/node_modules
-**/test-coverage
-**/tmp
-**/.web_bundle_build
-.gradle
-.idea
-/bundles
-/gradle-*.properties
-/plugins-sdk/**/classes
-/plugins-sdk/**/ivy.xml.MD5
-/plugins-sdk/**/liferay-hook.xml.processed
-/plugins-sdk/build.*.properties
-/plugins-sdk/dependencies/**/*.jar
-/plugins-sdk/dist
-/plugins-sdk/lib
-test-results
+# IntelliJ IDEA
+**/*\.iml
+
+# VAADIN
+# **/src/main/webapp/VAADIN/widgetsets/
+**/src/main/webapp/VAADIN/themes/*/styles.css
+**/src/main/webapp/VAADIN/themes/*/addons.scss
