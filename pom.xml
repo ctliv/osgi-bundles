@@ -25,7 +25,7 @@
 		<module>error_prone_annotations</module>
 		<module>j2objc-annotations</module>
 		<module>jsr305</module>
-		<module>autocomplete</module>
+		<module>autocomplete-bundle</module>
 	</modules>
 
 	<build>

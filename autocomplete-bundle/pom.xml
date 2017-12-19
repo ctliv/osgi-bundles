@@ -15,16 +15,18 @@
 	<packaging>bundle</packaging>
 
 	<properties>
-		<artifactName>autocomplete</artifactName>
+<!-- 		<artifactName>autocomplete</artifactName> -->
 		<vaadin.version>8.1.6</vaadin.version>
 		<vaadin.scope>provided</vaadin.scope>
 		<import.package>
 			!com.google.gwt.*,
 			!com.vaadin.client.*,
+			!com.google.web.bindery.event.shared,
+			!elemental.events,
 			*
 		</import.package>
 		<export.package>
-			org.vaadin.addons.autocomplete*;version="${project.version}"
+			org.vaadin.addons.autocomplete.*;version="${project.version}"
 		</export.package>
 	</properties>
 
