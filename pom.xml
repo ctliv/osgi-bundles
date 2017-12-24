@@ -26,6 +26,8 @@
 		<module>j2objc-annotations</module>
 		<module>jsr305</module>
 		<module>autocomplete-bundle</module>
+		<module>DynamicJasper-bundle</module>
+		<module>vaadin-onoffswitch-bundle</module>
 	</modules>
 
 	<build>
