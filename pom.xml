@@ -28,6 +28,7 @@
 		<module>autocomplete-bundle</module>
 		<module>DynamicJasper-bundle</module>
 		<module>vaadin-onoffswitch-bundle</module>
+		<module>geolocation-bundle</module>
 	</modules>
 
 	<build>
