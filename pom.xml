@@ -16,20 +16,20 @@
 		<maven.compiler.target>1.8</maven.compiler.target>		
 	</properties>
 	
-	<modules>
-		<module>yuicompressor</module>
-		<module>sac</module>
-		<module>vaadin-spring</module>
-		<module>com.liferay.util.slf4j</module>
-		<module>animal-sniffer-annotations</module>
-		<module>error_prone_annotations</module>
-		<module>j2objc-annotations</module>
-		<module>jsr305</module>
-		<module>autocomplete-bundle</module>
-		<module>DynamicJasper-bundle</module>
-		<module>vaadin-onoffswitch-bundle</module>
-		<module>geolocation-bundle</module>
-	</modules>
+<!-- 	<modules> -->
+<!-- 		<module>yuicompressor</module> -->
+<!-- 		<module>sac</module> -->
+<!-- 		<module>vaadin-spring</module> -->
+<!-- 		<module>com.liferay.util.slf4j</module> -->
+<!-- 		<module>animal-sniffer-annotations</module> -->
+<!-- 		<module>error_prone_annotations</module> -->
+<!-- 		<module>j2objc-annotations</module> -->
+<!-- 		<module>jsr305</module> -->
+<!-- 		<module>autocomplete-bundle</module> -->
+<!-- 		<module>DynamicJasper-bundle</module> -->
+<!-- 		<module>vaadin-onoffswitch-bundle</module> -->
+<!-- 		<module>geolocation-bundle</module> -->
+<!-- 	</modules> -->
 
 	<build>
         <resources>
