@@ -9,25 +9,28 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<groupId>ar.com.fdvs</groupId>
-	<artifactId>DynamicJasper-bundle</artifactId>
-	<version>5.1.0</version>
+	<groupId>com.vaadin</groupId>
+	<artifactId>vaadin-liferay-integration-fix</artifactId>
+	<version>8.2.0</version>
 	<packaging>bundle</packaging>
 
 	<properties>
 		<import.package>
-			*
+			com.vaadin.shared*;version='[8,9)',
+			com.vaadin.*;version='[8,9)',
+			* 
 		</import.package>
 		<export.package>
-			ar.com.fdvs.dj.*;version="${project.version}"
+			com.vaadin.osgi.liferay*;version="${project.version}"
 		</export.package>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>DynamicJasper</artifactId>
+			<artifactId>vaadin-liferay-integration</artifactId>
 			<version>${project.version}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

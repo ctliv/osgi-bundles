@@ -12,42 +12,24 @@
 	<groupId>com.yahoo.platform.yui</groupId>
 	<artifactId>yuicompressor-bundle</artifactId>
 	<version>2.4.8</version>
-	<description>Bundle of Yahoo yuicompressor</description>
 	<packaging>bundle</packaging>
 
 	<properties>
-		<private.package>
-		</private.package>
-		<import.package>*</import.package>
+		<import.package>
+			*
+		</import.package>
 		<export.package>
 			com.yahoo.platform.yui.compressor;version="${project.version}",
 			org.mozilla.javascript.*;version="${project.version}"
 		</export.package>
 	</properties>
 
-	<!--
-	<repositories>
-		<repository>
-			<id>ctliv-public-repo</id>
-			<url>https://ctliv.github.io/m2</url>
-		</repository>
-	</repositories>
-
-	<distributionManagement>
-		<repository>
-			<id>ctliv-public-repo</id>
-			<name>Ctliv Public Repository</name>
-			<url>https://ctliv.github.io/m2/</url>
-		</repository>
-	</distributionManagement>
-	-->
-
 	<dependencies>
-
  		<dependency>
  			<groupId>com.yahoo.platform.yui</groupId>
  			<artifactId>yuicompressor</artifactId>
  			<version>${project.version}</version>
+ 			<scope>provided</scope>
  			<exclusions>
  				<exclusion>
  					<groupId>rhino</groupId>
@@ -55,7 +37,6 @@
  				</exclusion>
  			</exclusions>
  		</dependency>
-
 	</dependencies>
 
 </project>

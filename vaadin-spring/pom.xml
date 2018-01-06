@@ -12,12 +12,9 @@
 	<groupId>com.vaadin</groupId>
 	<artifactId>vaadin-spring-bundle</artifactId>
 	<version>2.0.1</version>
-	<description>Bundle of W3C Sac</description>
 	<packaging>bundle</packaging>
 
 	<properties>
-		<private.package>
-		</private.package>
 		<import.package>
 			org.springframework.cglib.core;version="[4,5)",
 			org.springframework.cglib.proxy;version="[4,5)",
@@ -31,61 +28,14 @@
 		</export.package>
 	</properties>
 
-	<!--
-	<repositories>
-		<repository>
-			<id>ctliv-public-repo</id>
-			<url>https://ctliv.github.io/m2</url>
-		</repository>
-	</repositories>
-
-	<distributionManagement>
-		<repository>
-			<id>ctliv-public-repo</id>
-			<name>Ctliv Public Repository</name>
-			<url>https://ctliv.github.io/m2/</url>
-		</repository>
-	</distributionManagement>
-	-->
-
 	<dependencies>
 
  		<dependency>
  			<groupId>com.vaadin</groupId>
  			<artifactId>vaadin-spring</artifactId>
  			<version>${project.version}</version>
- 			<exclusions>
- 				<exclusion>
- 					<groupId>com.vaadin</groupId>
- 					<artifactId>vaadin-server</artifactId>
- 				</exclusion>
- 				<exclusion>
- 					<groupId>org.springframework</groupId>
- 					<artifactId>spring-core</artifactId>
- 				</exclusion>
- 				<exclusion>
- 					<groupId>org.springframework</groupId>
- 					<artifactId>spring-context</artifactId>
- 				</exclusion>
- 				<exclusion>
- 					<groupId>org.springframework</groupId>
- 					<artifactId>spring-aop</artifactId>
- 				</exclusion>
- 				<exclusion>
- 					<groupId>org.springframework</groupId>
- 					<artifactId>spring-beans</artifactId>
- 				</exclusion>
- 				<exclusion>
- 					<groupId>org.springframework</groupId>
- 					<artifactId>spring-expression</artifactId>
- 				</exclusion>
- 				<exclusion>
- 					<groupId>org.springframework</groupId>
- 					<artifactId>spring-web</artifactId>
- 				</exclusion>
- 			</exclusions>
+ 			<scope>provided</scope>
  		</dependency>
-
 	</dependencies>
 
 </project>

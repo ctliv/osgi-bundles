@@ -7,7 +7,7 @@
 	<artifactId>osgi-bundles</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>OSGi Bundles</name>
-	<description>Dependencies wrapped into bundles</description>
+	<description>Libraries wrapped into bundles (or with fixed exports/imports)</description>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -16,21 +16,6 @@
 		<maven.compiler.target>1.8</maven.compiler.target>		
 	</properties>
 	
-<!-- 	<modules> -->
-<!-- 		<module>yuicompressor</module> -->
-<!-- 		<module>sac</module> -->
-<!-- 		<module>vaadin-spring</module> -->
-<!-- 		<module>com.liferay.util.slf4j</module> -->
-<!-- 		<module>animal-sniffer-annotations</module> -->
-<!-- 		<module>error_prone_annotations</module> -->
-<!-- 		<module>j2objc-annotations</module> -->
-<!-- 		<module>jsr305</module> -->
-<!-- 		<module>autocomplete-bundle</module> -->
-<!-- 		<module>DynamicJasper-bundle</module> -->
-<!-- 		<module>vaadin-onoffswitch-bundle</module> -->
-<!-- 		<module>geolocation-bundle</module> -->
-<!-- 	</modules> -->
-
 	<build>
         <resources>
             <resource>
@@ -69,17 +54,6 @@
 					</instructions>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.8.2</version>
-				<configuration>
-					<altDeploymentRepository>private-local-repo::default::file://${private.local.repo}</altDeploymentRepository>
-					<uniqueVersion>false</uniqueVersion>
-				</configuration>
-			</plugin>
-
 		</plugins>
 
 	</build>

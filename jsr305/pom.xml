@@ -15,9 +15,9 @@
 	<packaging>bundle</packaging>
 
 	<properties>
-		<private.package>
-		</private.package>
-		<import.package>*</import.package>
+		<import.package>
+			*
+		</import.package>
 		<export.package>
 			javax.annotation;version="${project.version}",
 			javax.annotation.concurrent;version="${project.version}",
@@ -25,31 +25,13 @@
 		</export.package>
 	</properties>
 
-	<!--
-	<repositories>
-		<repository>
-			<id>ctliv-public-repo</id>
-			<url>https://ctliv.github.io/m2</url>
-		</repository>
-	</repositories>
-
-	<distributionManagement>
-		<repository>
-			<id>ctliv-public-repo</id>
-			<name>Ctliv Public Repository</name>
-			<url>https://ctliv.github.io/m2/</url>
-		</repository>
-	</distributionManagement>
-	-->
-
 	<dependencies>
-
  		<dependency>
  			<groupId>com.google.code.findbugs</groupId>
  			<artifactId>jsr305</artifactId>
  			<version>${project.version}</version>
+ 			<scope>provided</scope>
  		</dependency>
-
 	</dependencies>
 
 </project>

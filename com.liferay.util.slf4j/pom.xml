@@ -12,7 +12,6 @@
 	<groupId>com.liferay.portal</groupId>
 	<artifactId>com.liferay.util.slf4j-mod</artifactId>
 	<version>1.0.1</version>
-	<description>Bundle of Liferay slf4j bridge that exports also org.slf4j.impl</description>
 	<packaging>bundle</packaging>
 
 	<properties>
@@ -27,35 +26,15 @@
 			com.liferay.util.slf4j;version="${project.version}",
 			org.slf4j.impl
 		</export.package>
-		<private.package>
-		</private.package>
 	</properties>
 
-	<!--
-	<repositories>
-		<repository>
-			<id>ctliv-public-repo</id>
-			<url>https://ctliv.github.io/m2</url>
-		</repository>
-	</repositories>
-
-	<distributionManagement>
-		<repository>
-			<id>ctliv-public-repo</id>
-			<name>Ctliv Public Repository</name>
-			<url>https://ctliv.github.io/m2/</url>
-		</repository>
-	</distributionManagement>
-	-->
-
 	<dependencies>
-
  		<dependency>
  			<groupId>com.liferay.portal</groupId>
  			<artifactId>com.liferay.util.slf4j</artifactId>
  			<version>${project.version}</version>
+ 			<scope>provided</scope>
  		</dependency>
-
 	</dependencies>
 
 </project>

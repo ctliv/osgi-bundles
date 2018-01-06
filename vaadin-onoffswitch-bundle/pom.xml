@@ -15,9 +15,6 @@
 	<packaging>bundle</packaging>
 
 	<properties>
-<!-- 		<artifactName>autocomplete</artifactName> -->
-		<vaadin.version>8.2.0</vaadin.version>
-		<vaadin.scope>provided</vaadin.scope>
 		<import.package>
 			!com.google.gwt.*,
 			!com.vaadin.client.*,
@@ -37,18 +34,6 @@
 		</repository>
 	</repositories>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>com.vaadin</groupId>
-				<artifactId>vaadin-bom</artifactId>
-				<version>${vaadin.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -56,24 +41,6 @@
 			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
-		<!-- Vaadin -->
-		<dependency>
-			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-server</artifactId>
-			<scope>${vaadin.scope}</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-client-compiled</artifactId>
-			<scope>${vaadin.scope}</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-themes</artifactId>
-			<scope>${vaadin.scope}</scope>
-		</dependency>
-		
 	</dependencies>
 
 </project>
