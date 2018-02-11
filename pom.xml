@@ -9,6 +9,24 @@
 	<name>OSGi Bundles</name>
 	<description>Libraries wrapped into bundles (or with fixed exports/imports)</description>
 	<packaging>pom</packaging>
+	
+	<modules>
+		<module>autocomplete-bundle</module>
+<!-- 		<module>com.liferay.util.slf4j</module> -->
+		<module>DynamicJasper-bundle</module>
+<!-- 		<module>error_prone_annotations</module> -->
+		<module>formcheckbox-bundle</module>
+		<module>geolocation-bundle</module>
+<!-- 		<module>j2objc-annotations</module> -->
+<!-- 		<module>jsr305</module> -->
+		<module>report-ui-bundle</module>
+		<module>report-ui-full-bundle</module>
+<!-- 		<module>sac</module> -->
+		<module>vaadin-liferay-integration-fix</module>
+		<module>vaadin-onoffswitch-bundle</module>
+<!-- 		<module>vaadin-spring</module> -->
+<!-- 		<module>yuicompressor</module> -->
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
