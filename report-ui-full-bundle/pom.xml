@@ -33,6 +33,7 @@
 			javax.ejb.*;resolution:=dynamic,
 			javax.interceptor.*;resolution:=dynamic,
 			junit.framework.*;resolution:=dynamic,
+			junit.textui.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
