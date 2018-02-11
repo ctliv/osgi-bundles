@@ -28,6 +28,7 @@
 			com.opensymphony.xwork.*;resolution:=dynamic,
 			com.sun.net.httpserver.*;resolution:=dynamic,
 			edu.emory.mathcs.backport.java.util.concurrent.*;resolution:=dynamic,
+			groovy.lang.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
