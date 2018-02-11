@@ -19,6 +19,7 @@
 			!com.google.gwt.*,
 			!com.vaadin.client.*,
 			bsh.*;resolution:=dynamic,
+			com.adobe.xmp.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
