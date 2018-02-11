@@ -26,6 +26,7 @@
 			com.lowagie.toolbox.*;resolution:=dynamic,
 			com.opensymphony.webwork.*;resolution:=dynamic,
 			com.opensymphony.xwork.*;resolution:=dynamic,
+			com.sun.net.httpserver.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
