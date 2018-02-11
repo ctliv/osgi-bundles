@@ -29,6 +29,7 @@
 			com.sun.net.httpserver.*;resolution:=dynamic,
 			edu.emory.mathcs.backport.java.util.concurrent.*;resolution:=dynamic,
 			groovy.lang.*;resolution:=dynamic,
+			groovyjarjarasm.asm.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
