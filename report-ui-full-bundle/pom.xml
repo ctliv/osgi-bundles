@@ -37,6 +37,7 @@
 			jxl.*;resolution:=dynamic,
 			mondrian.olap.*;resolution:=dynamic,
 			mondrian.spi.*;resolution:=dynamic,
+			net.sf.cglib.asm.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
