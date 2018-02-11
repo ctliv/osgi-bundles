@@ -151,7 +151,7 @@ execscript() {
 }
 
 while (( "$#" )); do 
-  execscript 
+  execscript $1
   shift 
 done
 
