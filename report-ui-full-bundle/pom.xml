@@ -23,6 +23,7 @@
 			com.adobe.xmp.*;resolution:=dynamic,
 			com.apple.mrj.*;resolution:=dynamic,
 			com.jamonapi.*;resolution:=dynamic,
+			com.lowagie.toolbox.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
