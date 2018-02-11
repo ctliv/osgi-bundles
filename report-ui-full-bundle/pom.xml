@@ -25,6 +25,7 @@
 			com.jamonapi.*;resolution:=dynamic,
 			com.lowagie.toolbox.*;resolution:=dynamic,
 			com.opensymphony.webwork.*;resolution:=dynamic,
+			com.opensymphony.xwork.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
