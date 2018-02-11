@@ -1,7 +1,5 @@
-# osgi-bundler
+# osgi-bundles
 
-Java libraries wrapped into OSGi bundles:
-
-## com.yahoo.platform.yui:yuicompressor:2.4.8
-## org.w3c.css:sac:1.3 
-
+- Standard Java libraries wrapped into OSGi bundles
+- "Bundle of bundles": list of bundles needed for a working library (e.g.: Vaadin)
+- Installer for bundles
