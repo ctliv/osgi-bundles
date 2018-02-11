@@ -36,6 +36,7 @@
 			junit.textui.*;resolution:=dynamic,
 			jxl.*;resolution:=dynamic,
 			mondrian.olap.*;resolution:=dynamic,
+			mondrian.spi.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
