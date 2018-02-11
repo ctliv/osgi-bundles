@@ -18,8 +18,10 @@
 		<import.package>
 			!com.google.gwt.*,
 			!com.vaadin.client.*,
+			antlr.*;resolution:=dynamic,
 			bsh.*;resolution:=dynamic,
 			com.adobe.xmp.*;resolution:=dynamic,
+			com.apple.mrj.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
@@ -43,14 +45,6 @@
 			<version>${project.version}</version>
 <!-- 			<scope>provided</scope> -->
 		</dependency>
-
-		<dependency>
-			<groupId>antlr</groupId>
-			<artifactId>antlr</artifactId>
-			<version>2.7.7</version>
-<!-- 			<scope>provided</scope> -->
-		</dependency>
-
 	</dependencies>
 
 </project>
