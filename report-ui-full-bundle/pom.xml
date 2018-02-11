@@ -30,6 +30,7 @@
 			edu.emory.mathcs.backport.java.util.concurrent.*;resolution:=dynamic,
 			groovy.lang.*;resolution:=dynamic,
 			groovyjarjarasm.asm.*;resolution:=dynamic,
+			javax.ejb.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
