@@ -18,6 +18,7 @@
 		<import.package>
 			!com.google.gwt.*,
 			!com.vaadin.client.*,
+			bsh.*;resolution:=optional,
 			*
 		</import.package>
 		<export.package>
