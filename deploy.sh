@@ -13,7 +13,7 @@ showhelp () {
 	echo "OPTIONS:"
 	echo "    -s <num>   Deploy step <num> (default is all steps)"
 	echo "    -e         Echo (does not deploy)"
-	echo "    -p <num>   Pause (seconds) between steps (default=5, 0=ask step by step)"
+	echo "    -p <num>   Pause (seconds) between steps (default=5, 0=manual)"
 	echo
 	exit 1
 }
