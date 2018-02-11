@@ -31,6 +31,7 @@
 			groovy.lang.*;resolution:=dynamic,
 			groovyjarjarasm.asm.*;resolution:=dynamic,
 			javax.ejb.*;resolution:=dynamic,
+			javax.interceptor.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
