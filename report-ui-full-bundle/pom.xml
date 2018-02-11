@@ -22,6 +22,7 @@
 			bsh.*;resolution:=dynamic,
 			com.adobe.xmp.*;resolution:=dynamic,
 			com.apple.mrj.*;resolution:=dynamic,
+			com.jamonapi.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
