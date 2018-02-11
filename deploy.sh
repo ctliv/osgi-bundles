@@ -62,13 +62,6 @@ for script in $*; do
 	fi
 done
 
-while (( "$#" )); do 
-  execscript 
-  shift 
-done
-
-exit 0
-
 execscript() {
 
 	script="$1"
@@ -156,4 +149,11 @@ execscript() {
 	done
 
 }
+
+while (( "$#" )); do 
+  execscript 
+  shift 
+done
+
+exit 0
 
