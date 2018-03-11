@@ -39,6 +39,7 @@
 			mondrian.spi.*;resolution:=dynamic,
 			net.sf.cglib.asm.*;resolution:=dynamic,
 			net.sf.cglib.core.*;resolution:=dynamic,
+			net.sf.cglib.proxy.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
