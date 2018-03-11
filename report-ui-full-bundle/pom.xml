@@ -46,6 +46,7 @@
 			org.apache.log.*;resolution:=dynamic,
 			org.apache.oro.*;resolution:=dynamic,
 			org.apache.poi.*;resolution:=dynamic,
+			org.apache.velocity.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
