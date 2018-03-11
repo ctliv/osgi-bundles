@@ -40,6 +40,7 @@
 			net.sourceforge.barbecue.*;resolution:=dynamic,
 			netscape.ldap.*;resolution:=dynamic,
 			org.apache.batik.*;resolution:=dynamic,
+			org.apache.commons.javaflow.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
