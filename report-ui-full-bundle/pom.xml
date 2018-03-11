@@ -51,6 +51,7 @@
 			org.codehaus.groovy.*;resolution:=dynamic,
 			org.eclipse.*;resolution:=dynamic,
 			org.hibernate.validator.*;resolution:=dynamic,
+			org.joda.time.*;resolution:=dynamic,
 			org.joda.convert.*;resolution:=dynamic,
 			org.jruby.*;resolution:=dynamic,
 			org.krysalis.barcode4j.*;resolution:=dynamic,
@@ -81,11 +82,11 @@
 <!-- 			<scope>provided</scope> -->
 		</dependency>
 
-		<dependency>
+<!-- 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>2.9.9</version>
-		</dependency>
+		</dependency> -->
 
 	</dependencies>
 
