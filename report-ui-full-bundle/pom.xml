@@ -56,6 +56,7 @@
 			org.krysalis.barcode4j.*;resolution:=dynamic,
 			org.mozilla.javascript.*;resolution:=dynamic,
 			org.springframework.instrument.*;resolution:=dynamic,
+			org.w3c.dom.svg.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
