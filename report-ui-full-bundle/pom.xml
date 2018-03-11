@@ -55,6 +55,7 @@
 			org.jruby.*;resolution:=dynamic,
 			org.krysalis.barcode4j.*;resolution:=dynamic,
 			org.mozilla.javascript.*;resolution:=dynamic,
+			org.springframework.instrument.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
