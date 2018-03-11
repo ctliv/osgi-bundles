@@ -50,6 +50,7 @@
 			org.aspectj.*;resolution:=dynamic,
 			org.codehaus.groovy.*;resolution:=dynamic,
 			org.eclipse.*;resolution:=dynamic,
+			org.hibernate.validator.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
