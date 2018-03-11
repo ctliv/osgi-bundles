@@ -51,6 +51,8 @@
 			org.codehaus.groovy.*;resolution:=dynamic,
 			org.eclipse.*;resolution:=dynamic,
 			org.hibernate.validator.*;resolution:=dynamic,
+			org.joda.convert.*;resolution:=dynamic,
+
 			*
 		</import.package>
 		<export.package>
@@ -81,11 +83,6 @@
 			<version>2.9.9</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.joda</groupId>
-			<artifactId>joda-convert</artifactId>
-			<version>2.0</version>
-		</dependency>
 	</dependencies>
 
 </project>
