@@ -42,6 +42,7 @@
 			net.sf.cglib.proxy.*;resolution:=dynamic,
 			net.sf.cglib.transform.impl.*;
 			net.sourceforge.barbecue.*;resolution:=dynamic,
+			netscape.ldap.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
