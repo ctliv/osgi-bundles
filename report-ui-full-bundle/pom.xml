@@ -47,6 +47,7 @@
 			org.apache.oro.*;resolution:=dynamic,
 			org.apache.poi.*;resolution:=dynamic,
 			org.apache.velocity.*;resolution:=dynamic,
+			org.aspectj.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
