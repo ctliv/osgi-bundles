@@ -42,6 +42,7 @@
 			org.apache.batik.*;resolution:=dynamic,
 			org.apache.commons.javaflow.*;resolution:=dynamic,
 			org.apache.commons.pool.*;resolution:=dynamic,
+			org.apache.http.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
