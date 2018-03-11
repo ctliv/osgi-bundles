@@ -41,6 +41,7 @@
 			netscape.ldap.*;resolution:=dynamic,
 			org.apache.batik.*;resolution:=dynamic,
 			org.apache.commons.javaflow.*;resolution:=dynamic,
+			org.apache.commons.pool.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
