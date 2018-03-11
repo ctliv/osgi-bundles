@@ -48,6 +48,7 @@
 			org.apache.poi.*;resolution:=dynamic,
 			org.apache.velocity.*;resolution:=dynamic,
 			org.aspectj.*;resolution:=dynamic,
+			org.codehaus.groovy.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
