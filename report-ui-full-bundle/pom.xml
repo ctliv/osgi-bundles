@@ -52,6 +52,7 @@
 			org.eclipse.*;resolution:=dynamic,
 			org.hibernate.validator.*;resolution:=dynamic,
 			org.joda.convert.*;resolution:=dynamic,
+			org.jruby.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
