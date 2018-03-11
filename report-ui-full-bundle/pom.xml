@@ -54,6 +54,7 @@
 			org.joda.convert.*;resolution:=dynamic,
 			org.jruby.*;resolution:=dynamic,
 			org.krysalis.barcode4j.*;resolution:=dynamic,
+			org.mozilla.javascript.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
