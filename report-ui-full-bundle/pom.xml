@@ -44,6 +44,7 @@
 			org.apache.commons.pool.*;resolution:=dynamic,
 			org.apache.http.*;resolution:=dynamic,
 			org.apache.log.*;resolution:=dynamic,
+			org.apache.oro.*;resolution:=dynamic,
 			*
 		</import.package>
 		<export.package>
