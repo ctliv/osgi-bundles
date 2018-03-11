@@ -52,7 +52,6 @@
 			org.eclipse.*;resolution:=dynamic,
 			org.hibernate.validator.*;resolution:=dynamic,
 			org.joda.convert.*;resolution:=dynamic,
-
 			*
 		</import.package>
 		<export.package>
