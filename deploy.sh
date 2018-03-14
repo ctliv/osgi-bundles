@@ -62,19 +62,41 @@ for script in $*; do
 	fi
 done
 
+waitorpause() {
+	if [ $pause -eq 0 ]; then
+		read -n1 -r -p "Press any key to continue..." key
+		echo
+	else
+		echo Sleeping $pause seconds...
+		sleep $pause
+	fi
+}
+
 execscript() {
 
 	script="$1"
+	echo Checking: $script
 
 	scriptdir=$(dirname "$script")
 	scriptbase=$(basename "$script")
-
-	#Sets default (jar is in maven target folder)
-	scriptname="${scriptbase%.*}"
-	declare -a resources=("target/${scriptname}.jar")
 	
-	#Executes script
-	source "$script"
+	if [ -f "$script" ]; then
+		#Executes script
+		echo Executing script: $script
+		source "$script"
+	else
+		#Sets default (jar is in maven target folder)
+		scriptname="${scriptbase%.*}"
+		library="target/${scriptname}.jar"
+		if [ -f "$library" ]; then
+			echo Deploying default: $library
+			declare -a resources=("${library}")
+		else
+			echo Failed: $script
+			return
+		fi
+	fi
+	
 	#If resources are not set, shows help
 	if [ ${#resources[@]} -eq 0 ]; then
 		echo "Script \"${script}\" does not declare resources array"
@@ -119,13 +141,7 @@ execscript() {
 				fi
 			fi
 			if [ $step -gt 0 ]; then
-				if [ $pause -eq 0 ]; then
-					read -n1 -r -p "Press any key to continue..." key
-					echo
-				else
-					echo Sleeping $pause seconds...
-					sleep $pause
-				fi
+				waitorpause
 			fi
 		else
 			if [ $step -eq 0 ]; then
@@ -153,6 +169,11 @@ execscript() {
 while (( "$#" )); do 
   execscript $1
   shift 
+  if [ $# -gt 0 ]; then 
+	echo
+	waitorpause
+  fi
+  echo
 done
 
 exit 0
