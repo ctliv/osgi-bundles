@@ -55,10 +55,13 @@ fi
 
 shift
 
+echo Checking scripts...
 for script in $*; do 
 	if ! [ -f "$script" ]; then
-		echo "Script \"${script}\" does not exist"
+		echo Not found: "${script}"
 		showhelp
+	else
+		echo Checked: "${script}"
 	fi
 done
 
@@ -75,27 +78,28 @@ waitorpause() {
 execscript() {
 
 	script="$1"
-	echo Checking: $script
+	#echo Checking: $script
 
 	scriptdir=$(dirname "$script")
 	scriptbase=$(basename "$script")
 	
-	if [ -f "$script" ]; then
+	# if [ -f "$script" ]; then
 		#Executes script
 		echo Executing script: $script
 		source "$script"
-	else
-		#Sets default (jar is in maven target folder)
-		scriptname="${scriptbase%.*}"
-		library="target/${scriptname}.jar"
-		if [ -f "$library" ]; then
-			echo Deploying default: $library
-			declare -a resources=("${library}")
-		else
-			echo Failed: $script
-			return
-		fi
-	fi
+	# else
+	# 	echo Script not found
+	# 	#Sets default (jar is in maven target folder)
+	# 	scriptname="${scriptbase%.*}"
+	# 	library="target/${scriptname}.jar"
+	# 	if [ -f "$library" ]; then
+	# 		echo Deploying default: $library
+	# 		declare -a resources=("${library}")
+	# 	else
+	# 		echo Failed: $script
+	# 		return
+	# 	fi
+	# fi
 	
 	#If resources are not set, shows help
 	if [ ${#resources[@]} -eq 0 ]; then
@@ -137,7 +141,7 @@ execscript() {
 				else
 					cd "$target"
 					curl -O -k -L -C - "$i"
-					cd "$dir"
+					cd -
 				fi
 			fi
 			if [ $step -gt 0 ]; then
@@ -156,7 +160,7 @@ execscript() {
 					else
 						cd "$target"
 						curl -O -k -L -C - "$i"
-						cd "$dir"
+						cd -
 					fi
 				fi
 				break
