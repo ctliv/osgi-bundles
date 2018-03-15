@@ -64,6 +64,7 @@ for script in $*; do
 		echo Checked: "${script}"
 	fi
 done
+echo
 
 waitorpause() {
 	if [ $pause -eq 0 ]; then
@@ -140,7 +141,7 @@ execscript() {
 					fi
 				else
 					cd "$target"
-					curl -O -k -L -C - "$i"
+					curl -J -O -k -L -C - "$i"
 					cd -
 				fi
 			fi
@@ -159,7 +160,7 @@ execscript() {
 						fi
 					else
 						cd "$target"
-						curl -O -k -L -C - "$i"
+						curl -J -O -k -L -C - "$i"
 						cd -
 					fi
 				fi
