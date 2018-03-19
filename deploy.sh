@@ -1,7 +1,7 @@
 #!/bin/bash
 
-base=$(basename "$0")
-dir=$(dirname "$0")
+scriptname=$(basename "$0")
+scriptext="${scriptname##*.}"
 eff=1
 all=1
 step=0
@@ -9,7 +9,7 @@ pause=5
 
 showhelp () {
 	echo
-	echo "USAGE: $base [options] target script [script...]"
+	echo "USAGE: $scriptname [options] target item [item...]"
 	echo "OPTIONS:"
 	echo "    -s <num>   Deploy step <num> (default is all steps)"
 	echo "    -e         Echo (does not deploy)"
@@ -56,12 +56,12 @@ fi
 shift
 
 echo Checking scripts...
-for script in $*; do 
-	if ! [ -f "$script" ]; then
-		echo Not found: "${script}"
+for item in $*; do 
+	if ! [ -f "$item" ]; then
+		echo Not found: ${item}
 		showhelp
 	else
-		echo Checked: "${script}"
+		echo Checked: ${item}
 	fi
 done
 echo
@@ -76,38 +76,49 @@ waitorpause() {
 	fi
 }
 
-execscript() {
+deploy() {
+	if [ $eff -eq 1 ]; then
+		if ! [[ $1 =~ $re_inet ]] ; then
+			if [ ${1:0:1} == "/" ]; then
+				cp "$1" "$target"
+			else 
+				cp "${itemdir}/$1" "$target"
+			fi
+		else
+			cd "$target"
+			curl -J -O -k -L -C - "$1"
+			cd -
+		fi
+	fi
+}
 
-	script="$1"
-	#echo Checking: $script
+execitem() {
 
-	scriptdir=$(dirname "$script")
-	scriptbase=$(basename "$script")
-	
-	# if [ -f "$script" ]; then
-		#Executes script
-		echo Executing script: $script
-		source "$script"
-	# else
-	# 	echo Script not found
-	# 	#Sets default (jar is in maven target folder)
-	# 	scriptname="${scriptbase%.*}"
-	# 	library="target/${scriptname}.jar"
-	# 	if [ -f "$library" ]; then
-	# 		echo Deploying default: $library
-	# 		declare -a resources=("${library}")
-	# 	else
-	# 		echo Failed: $script
-	# 		return
-	# 	fi
-	# fi
-	
-	#If resources are not set, shows help
-	if [ ${#resources[@]} -eq 0 ]; then
-		echo "Script \"${script}\" does not declare resources array"
+	item="$1"
+	#echo Checking: $item
+
+	if ! [ -f "${item}" ]; then
+		echo Item \"${item}\" not found
 		showhelp
 	fi
 
+	itemdir=$(dirname "$item")
+	itembase=$(basename "$item")
+	itemext="${itembase##*.}"
+
+	if [ "$itemext" == "$scriptext" ]; then
+		echo Executing item: $item
+		source "$item"
+		#If resources are not set, shows help
+		if [ ${#resources[@]} -eq 0 ]; then
+			echo "Script \"${item}\" does not declare resources array"
+			showhelp
+		fi
+	else
+		echo Found item: $item
+		declare -a resources=("${item}")
+	fi
+	
 	if [ $step -gt ${#resources[@]} ]; then
 		echo "Step <num> is greater than available resources"
 		showhelp
@@ -132,38 +143,14 @@ execscript() {
 		fi
 		if [ $all -eq 1 ]; then
 			echo "$i"
-			if [ $eff -eq 1 ]; then
-				if ! [[ $i =~ $re_inet ]] ; then
-					if [ ${i:0:1} == "/" ]; then
-						cp "$i" "$target"
-					else 
-						cp "${scriptdir}/$i" "$target"
-					fi
-				else
-					cd "$target"
-					curl -J -O -k -L -C - "$i"
-					cd -
-				fi
-			fi
-			if [ $step -gt 0 ]; then
+			deploy "$i"
+			if [ $step -gt 0 ]  && [ $eff -eq 1 ]; then
 				waitorpause
 			fi
 		else
 			if [ $step -eq 0 ]; then
 				echo "$i"
-				if [ $eff -eq 1 ]; then
-					if ! [[ $i =~ $re_inet ]] ; then
-						if [ ${i:0:1} == "/" ]; then
-							cp "$i" "$target"
-						else 
-							cp "${scriptdir}/$i" "$target"
-						fi
-					else
-						cd "$target"
-						curl -J -O -k -L -C - "$i"
-						cd -
-					fi
-				fi
+				deploy "$i"
 				break
 			fi
 		fi
@@ -172,13 +159,14 @@ execscript() {
 }
 
 while (( "$#" )); do 
-  execscript $1
+  execitem "$1"
   shift 
   if [ $# -gt 0 ]; then 
 	echo
-	waitorpause
+	if [ $eff -eq 1 ]; then
+		waitorpause
+	fi
   fi
-  echo
 done
 
 exit 0
