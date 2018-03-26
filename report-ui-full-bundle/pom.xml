@@ -18,6 +18,16 @@
 		<import.package>
 			!com.google.gwt.*,
 			!com.vaadin.client.*,
+			*;resolution:=dynamic
+		</import.package>
+		<export.package>
+			org.vaadin.reports.*;version="${project.version}",
+			ar.com.fdvs.dj.*;version="5.1.0",
+			net.sf.jasperreports.*;version="6.3.0"
+		</export.package>
+	</properties>
+
+	<!-- 
 			antlr.*;resolution:=dynamic,
 			bsh.*;resolution:=dynamic,
 			com.adobe.xmp.*;resolution:=dynamic,
@@ -58,14 +68,7 @@
 			org.mozilla.javascript.*;resolution:=dynamic,
 			org.springframework.instrument.*;resolution:=dynamic,
 			org.w3c.dom.svg.*;resolution:=dynamic,
-			*
-		</import.package>
-		<export.package>
-			org.vaadin.reports.*;version="${project.version}",
-			ar.com.fdvs.dj.*;version="5.1.0",
-			net.sf.jasperreports.*;version="6.3.0"
-		</export.package>
-	</properties>
+	-->
 
 	<repositories>
 		<repository>
@@ -80,6 +83,12 @@
 			<artifactId>report-ui</artifactId>
 			<version>${project.version}</version>
 <!-- 			<scope>provided</scope> -->
+		</dependency>
+
+		<dependency>
+			<groupId>ar.com.fdvs</groupId>
+			<artifactId>DynamicJasper-core-fonts</artifactId>
+			<version>1.0</version>
 		</dependency>
 
 <!-- 		<dependency>

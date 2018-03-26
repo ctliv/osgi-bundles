@@ -16,7 +16,7 @@
 
 	<properties>
 		<import.package>
-			*
+			*;resolution:=dynamic
 		</import.package>
 		<export.package>
 			ar.com.fdvs.dj.*;version="${project.version}"
@@ -28,6 +28,11 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>DynamicJasper</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ar.com.fdvs</groupId>
+			<artifactId>DynamicJasper-core-fonts</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
 
