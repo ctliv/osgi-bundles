@@ -19,7 +19,8 @@
 			*;resolution:=dynamic
 		</import.package>
 		<export.package>
-			ar.com.fdvs.dj.*;version="${project.version}"
+			ar.com.fdvs.dj.*;version="${project.version}",
+			net.sf.jasperreports.*;version="6.3.0"
 		</export.package>
 	</properties>
 
