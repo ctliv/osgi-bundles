@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -15,65 +16,51 @@
 	<packaging>bundle</packaging>
 
 	<properties>
+		<jasperreports.version>6.3.0</jasperreports.version>
+
 		<import.package>
 			!com.google.gwt.*,
 			!com.vaadin.client.*,
 			*;resolution:=dynamic
 		</import.package>
 		<export.package>
+			com.ctliv.report.*;version="${project.version}",
 			org.vaadin.reports.*;version="${project.version}",
 			ar.com.fdvs.dj.*;version="5.1.0",
-			net.sf.jasperreports.*;version="6.3.0"
+			net.sf.jasperreports.*;version="${jasperreports.version}"
 		</export.package>
+		<bundle.activator>com.ctliv.report.Activator</bundle.activator>
 	</properties>
 
-	<!-- 
-			antlr.*;resolution:=dynamic,
-			bsh.*;resolution:=dynamic,
-			com.adobe.xmp.*;resolution:=dynamic,
-			com.apple.mrj.*;resolution:=dynamic,
-			com.jamonapi.*;resolution:=dynamic,
-			com.lowagie.toolbox.*;resolution:=dynamic,
-			com.opensymphony.*;resolution:=dynamic,
-			com.sun.net.httpserver.*;resolution:=dynamic,
-			edu.emory.mathcs.backport.java.util.concurrent.*;resolution:=dynamic,
-			groovy.lang.*;resolution:=dynamic,
-			groovyjarjarasm.asm.*;resolution:=dynamic,
-			javax.ejb.*;resolution:=dynamic,
-			javax.interceptor.*;resolution:=dynamic,
-			junit.framework.*;resolution:=dynamic,
-			junit.textui.*;resolution:=dynamic,
-			jxl.*;resolution:=dynamic,
-			mondrian.olap.*;resolution:=dynamic,
-			mondrian.spi.*;resolution:=dynamic,
-			net.sf.cglib.*;resolution:=dynamic,
-			net.sourceforge.barbecue.*;resolution:=dynamic,
-			netscape.ldap.*;resolution:=dynamic,
-			org.apache.batik.*;resolution:=dynamic,
-			org.apache.commons.javaflow.*;resolution:=dynamic,
-			org.apache.commons.pool.*;resolution:=dynamic,
-			org.apache.http.*;resolution:=dynamic,
-			org.apache.log.*;resolution:=dynamic,
-			org.apache.oro.*;resolution:=dynamic,
-			org.apache.poi.*;resolution:=dynamic,
-			org.apache.velocity.*;resolution:=dynamic,
-			org.aspectj.*;resolution:=dynamic,
-			org.codehaus.groovy.*;resolution:=dynamic,
-			org.eclipse.*;resolution:=dynamic,
-			org.hibernate.validator.*;resolution:=dynamic,
-			org.joda.time.*;resolution:=dynamic,
-			org.joda.convert.*;resolution:=dynamic,
-			org.jruby.*;resolution:=dynamic,
-			org.krysalis.barcode4j.*;resolution:=dynamic,
-			org.mozilla.javascript.*;resolution:=dynamic,
-			org.springframework.instrument.*;resolution:=dynamic,
-			org.w3c.dom.svg.*;resolution:=dynamic,
-	-->
+	<!-- antlr.*;resolution:=dynamic, bsh.*;resolution:=dynamic, com.adobe.xmp.*;resolution:=dynamic, 
+		com.apple.mrj.*;resolution:=dynamic, com.jamonapi.*;resolution:=dynamic, 
+		com.lowagie.toolbox.*;resolution:=dynamic, com.opensymphony.*;resolution:=dynamic, 
+		com.sun.net.httpserver.*;resolution:=dynamic, edu.emory.mathcs.backport.java.util.concurrent.*;resolution:=dynamic, 
+		groovy.lang.*;resolution:=dynamic, groovyjarjarasm.asm.*;resolution:=dynamic, 
+		javax.ejb.*;resolution:=dynamic, javax.interceptor.*;resolution:=dynamic, 
+		junit.framework.*;resolution:=dynamic, junit.textui.*;resolution:=dynamic, 
+		jxl.*;resolution:=dynamic, mondrian.olap.*;resolution:=dynamic, mondrian.spi.*;resolution:=dynamic, 
+		net.sf.cglib.*;resolution:=dynamic, net.sourceforge.barbecue.*;resolution:=dynamic, 
+		netscape.ldap.*;resolution:=dynamic, org.apache.batik.*;resolution:=dynamic, 
+		org.apache.commons.javaflow.*;resolution:=dynamic, org.apache.commons.pool.*;resolution:=dynamic, 
+		org.apache.http.*;resolution:=dynamic, org.apache.log.*;resolution:=dynamic, 
+		org.apache.oro.*;resolution:=dynamic, org.apache.poi.*;resolution:=dynamic, 
+		org.apache.velocity.*;resolution:=dynamic, org.aspectj.*;resolution:=dynamic, 
+		org.codehaus.groovy.*;resolution:=dynamic, org.eclipse.*;resolution:=dynamic, 
+		org.hibernate.validator.*;resolution:=dynamic, org.joda.time.*;resolution:=dynamic, 
+		org.joda.convert.*;resolution:=dynamic, org.jruby.*;resolution:=dynamic, 
+		org.krysalis.barcode4j.*;resolution:=dynamic, org.mozilla.javascript.*;resolution:=dynamic, 
+		org.springframework.instrument.*;resolution:=dynamic, org.w3c.dom.svg.*;resolution:=dynamic, -->
 
 	<repositories>
 		<repository>
 			<id>vaadin-addons</id>
 			<url>http://maven.vaadin.com/vaadin-addons</url>
+		</repository>
+		<repository>
+			<id>liferay-public-releases</id>
+			<name>Liferay Public Releases</name>
+			<url>https://repository.liferay.com/nexus/content/groups/public/</url>
 		</repository>
 	</repositories>
 
@@ -82,7 +69,7 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>report-ui</artifactId>
 			<version>${project.version}</version>
-<!-- 			<scope>provided</scope> -->
+			<!-- <scope>provided</scope> -->
 		</dependency>
 
 		<dependency>
@@ -91,11 +78,69 @@
 			<version>1.0</version>
 		</dependency>
 
-<!-- 		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>2.9.9</version>
-		</dependency> -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>${jasperreports.version}</version>
+			<!-- <scope>provided</scope> -->
+		</dependency>
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>xml-apis</groupId> -->
+<!-- 			<artifactId>xml-apis</artifactId> -->
+<!-- 			<version>1.4.01</version> -->
+<!-- 		</dependency> -->
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.eclipse.jdt</groupId> -->
+		<!-- <artifactId>core</artifactId> -->
+		<!-- <version>3.1.1</version> -->
+		<!-- </dependency> -->
+
+		<!-- <dependency> <groupId>joda-time</groupId> <artifactId>joda-time</artifactId> 
+			<version>2.9.9</version> </dependency> -->
+
+		<!-- Liferay 7 -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.liferay.portal</groupId> -->
+		<!-- <artifactId>com.liferay.portal.kernel</artifactId> -->
+		<!-- <version>2.0.0</version> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
+
+		<!-- OSGi Dependencies -->
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.core</artifactId>
+			<version>6.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.annotation</artifactId>
+			<version>6.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.cmpn</artifactId>
+			<version>6.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Equinox -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.liferay</groupId> -->
+<!-- 			<artifactId>org.eclipse.osgi</artifactId> -->
+<!-- 			<version>3.10.200-20150904.172142-1-LIFERAY-CACHED</version> -->
+<!-- 			<scope>provided</scope> -->
+<!-- 		</dependency> -->
 
 	</dependencies>
 
