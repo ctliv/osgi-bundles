@@ -5,21 +5,24 @@ scriptabs=$(dirname "$scriptreal")
 scriptdir=$(dirname "$0")
 scriptname=$(basename "$0")
 scriptext="${scriptname##*.}"
-act=1
-#all=1
+
+emulate=0
 step=0
 pause=5
+indent=""
+
+re_num='^[0-9]+$'
 re_inet='^.+:\/\/.+$'
+
 scripts=()
 bundles=()
-indent=""
 
 showhelp () {
 	echo
 	echo "USAGE: $scriptname [options] target item [item...]"
 	echo "OPTIONS:"
 	echo "    -s <num>   Deploy step <num> (default is all steps)"
-	echo "    -e         Echo (does not deploy)"
+	echo "    -e         Emulate (does not deploy)"
 	echo "    -p <num>   Pause (seconds) between steps (default=5, 0=manual)"
 	echo
 	exit 1
@@ -27,7 +30,7 @@ showhelp () {
 
 while getopts "ep:s:" opt; do
 	case "$opt" in
-	e)	act=0
+	e)	emulate=1
 		;;
 	p)	pause=$OPTARG
 		;;
@@ -39,7 +42,6 @@ shift $((OPTIND-1))
 
 #[ "$1" = "--" ] && shift
 
-re_num='^[0-9]+$'
 if ! [[ "$step" =~ $re_num ]] ; then
 	echo "Step <num> is not a positive integer"
 	showhelp
@@ -139,29 +141,27 @@ loadBundles() {
 }
 
 deploybundle() {
-	echo Deploying: $1
-	if [ $act -eq 1 ]; then
-		if ! [[ $1 =~ $re_inet ]] ; then
-			if [ ${1:0:1} == "/" ]; then
-				cp "$1" "$target"
-			else 
-				cp "${itemdir}/$1" "$target"
-			fi
-		else
-			cd "$target"
-			curl -J -O -k -L -C - "$1"
-			cd -
-		fi
+	if ! [[ $1 =~ $re_inet ]] ; then
+		echo Copying: $1
+		cp "$1" "$target"
+	else
+		echo Downloading: $1
+		cd "$target"
+		curl -J -O -k -L -C - "$1"
+		cd -
 	fi
 }
 
 waitorpause() {
 	if [ $pause -eq 0 ]; then
-		read -n1 -r -p "Press any key to continue..." key
 		echo
+		read -n1 -r -p "Press any key to continue..." key
 	else
-		echo Sleeping $pause seconds...
-		sleep $pause
+		if [ $pause -gt 0 ]; then
+			echo
+			echo Sleeping $pause seconds...
+			sleep $pause
+		fi
 	fi
 }
 
@@ -181,27 +181,29 @@ fi
 echo
 echo Deploying bundles...
 echo
+deployed=0
 if [ $step -gt 0 ]; then
 	if [ $step -gt ${#bundles[@]} ]; then
 		echo "Step <num> is greater than available bundles (${#bundles[@]})"
 		showhelp
 	else
-		step=${step}-1
+		((step--))
 		deploybundle ${bundles[$step]}
 	fi
 else
-	first=1
 	for bundle in "${bundles[@]}"; do 
-		if [ $act -eq 1 ] && [ $first -ne 1 ]; then
+		if [ $emulate -eq 0 ] && [ $deployed -gt 0 ]; then
 			waitorpause
-			first=0
 		fi
-		deploybundle $bundle
+		if [ $emulate -eq 0 ]; then
+			deploybundle $bundle
+			((deployed++))
+		fi
 	done
 fi
 
 echo
-echo Done
+echo Deployed $deployed bundles
 
 exit 0
 

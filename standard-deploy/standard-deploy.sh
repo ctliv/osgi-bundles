@@ -3,8 +3,6 @@
 basedir=$(dirname "$0")
 
 declare -a resources=(
-"${basedir}/../webconsole/webconsole-4.3.4.sh"
-"${basedir}/../webconsole/search-webconsole-plugin-1.2.1.sh"
 "${basedir}/../vaadin-fix/vaadin-8.2.0-fix.sh"
 "${basedir}/../autocomplete-bundle/autocomplete-bundle-0.2.2.sh"
 "${basedir}/../geolocation-bundle/geolocation-bundle-0.1.0.sh"
