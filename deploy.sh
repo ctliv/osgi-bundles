@@ -1,11 +1,18 @@
 #!/bin/bash
 
+scriptreal=$(realpath "$0")
+scriptabs=$(dirname "$scriptreal")
+scriptdir=$(dirname "$0")
 scriptname=$(basename "$0")
 scriptext="${scriptname##*.}"
-eff=1
-all=1
+act=1
+#all=1
 step=0
 pause=5
+re_inet='^.+:\/\/.+$'
+scripts=()
+bundles=()
+indent=""
 
 showhelp () {
 	echo
@@ -20,7 +27,7 @@ showhelp () {
 
 while getopts "ep:s:" opt; do
 	case "$opt" in
-	e)	eff=0
+	e)	act=0
 		;;
 	p)	pause=$OPTARG
 		;;
@@ -33,16 +40,16 @@ shift $((OPTIND-1))
 #[ "$1" = "--" ] && shift
 
 re_num='^[0-9]+$'
-if ! [[ $step =~ $re_num ]] ; then
+if ! [[ "$step" =~ $re_num ]] ; then
 	echo "Step <num> is not a positive integer"
 	showhelp
 fi
-if ! [[ $pause =~ $re_num ]] ; then
+if ! [[ "$pause" =~ $re_num ]] ; then
 	echo "Pause <num> is not a positive integer"
 	showhelp
 fi
 
-if [ "$#" -lt 2 ]; then
+if [ $# -lt 2 ]; then
 	echo "Illegal number of parameters"
     showhelp
 fi
@@ -55,29 +62,85 @@ fi
 
 shift
 
-echo Checking scripts...
-for item in $*; do 
-	if ! [ -f "$item" ]; then
-		echo Not found: ${item}
-		showhelp
-	else
-		echo Checked: ${item}
-	fi
-done
-echo
-
-waitorpause() {
-	if [ $pause -eq 0 ]; then
-		read -n1 -r -p "Press any key to continue..." key
-		echo
-	else
-		echo Sleeping $pause seconds...
-		sleep $pause
-	fi
+#https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value
+containsElement () {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" == "$match" ]] && return 0; done
+  return 1
 }
 
-deploy() {
-	if [ $eff -eq 1 ]; then
+loadBundles() {
+	local item="$1"
+	local sourcepath="$2"
+	
+	#If Inet, add to bundles
+	if [[ "$item" =~ $re_inet ]] ; then
+		echo ${indent}Found: $item
+		bundles+=("$item")
+		return 0
+	fi 
+	
+	#Path must be absolute
+#	echo Sourcepath is: $sourcepath
+	if ! [ "${item:0:1}" == "/" ]; then
+		if [ "${sourcepath}" == "" ]; then
+			#Default value
+			sourcepath="."
+		fi
+		if [ "${sourcepath:0:1}" == "/" ]; then
+			item="${sourcepath}/${item}"
+		else
+			item="${scriptabs}/${sourcepath}/${item}"
+		fi
+		item=$(realpath "${item}")
+		if [ "$item" == "" ]; then
+			exit 1
+		fi
+	fi
+	
+	local itemdir=$(dirname "$item")
+	local itembase=$(basename "$item")
+	local itemext="${itembase##*.}"
+
+	#Check for existance
+	if ! [ -f "${item}" ]; then
+		echo ${indent} Item \"${item}\" not found
+		exit 1
+	fi
+
+	#If Script, then execute (only once)
+	if [ "$itemext" == "$scriptext" ]; then
+		#Checks if scripts was already executed
+		containsElement "$item" "${scripts[@]}"
+		if [ $? -ne 0 ]; then
+			local oldindent="$indent"
+			echo ${indent}Reading: $item
+			indent="${indent}.."
+			source "$item"
+			#If resources are not set, shows help
+			if [ ${#resources[@]} -eq 0 ]; then
+				echo ${indent}"Script \"${item}\" does not declare resources array"
+				exit 1
+			fi
+			scripts+=("$item")
+			for res in "${resources[@]}" 
+			do
+				loadBundles "$res" "$itemdir"
+			done
+			indent="$oldindent"
+		fi
+	else
+		#Il file, add to bundles
+		echo ${indent}Found: $item
+		bundles+=("$item")
+	fi
+	
+}
+
+deploybundle() {
+	echo Deploying: $1
+	if [ $act -eq 1 ]; then
 		if ! [[ $1 =~ $re_inet ]] ; then
 			if [ ${1:0:1} == "/" ]; then
 				cp "$1" "$target"
@@ -92,82 +155,53 @@ deploy() {
 	fi
 }
 
-execitem() {
-
-	item="$1"
-	#echo Checking: $item
-
-	if ! [ -f "${item}" ]; then
-		echo Item \"${item}\" not found
-		showhelp
-	fi
-
-	itemdir=$(dirname "$item")
-	itembase=$(basename "$item")
-	itemext="${itembase##*.}"
-
-	if [ "$itemext" == "$scriptext" ]; then
-		echo Executing item: $item
-		source "$item"
-		#If resources are not set, shows help
-		if [ ${#resources[@]} -eq 0 ]; then
-			echo "Script \"${item}\" does not declare resources array"
-			showhelp
-		fi
+waitorpause() {
+	if [ $pause -eq 0 ]; then
+		read -n1 -r -p "Press any key to continue..." key
+		echo
 	else
-		echo Found item: $item
-		declare -a resources=("${item}")
+		echo Sleeping $pause seconds...
+		sleep $pause
 	fi
-	
-	if [ $step -gt ${#resources[@]} ]; then
-		echo "Step <num> is greater than available resources"
-		showhelp
-	fi
-
-	if [ $step -gt 0 ]; then
-		all=0
-	fi
-
-	echo
-
-	if [ $all -eq 1 ]; then 
-		step=${#resources[@]}
-	fi
-
-	re_inet='^.+:\/\/.+$'
-
-	for i in "${resources[@]}" 
-	do
-		if [ $step -gt 0 ]; then
-			((step--))
-		fi
-		if [ $all -eq 1 ]; then
-			echo "$i"
-			deploy "$i"
-			if [ $step -gt 0 ]  && [ $eff -eq 1 ]; then
-				waitorpause
-			fi
-		else
-			if [ $step -eq 0 ]; then
-				echo "$i"
-				deploy "$i"
-				break
-			fi
-		fi
-	done
-
 }
 
+echo
+echo Finding bundles...
+echo
 while (( "$#" )); do 
-  execitem "$1"
+  loadBundles "$1"
   shift 
-  if [ $# -gt 0 ]; then 
-	echo
-	if [ $eff -eq 1 ]; then
-		waitorpause
-	fi
-  fi
 done
+
+if [ ${#bundles[@]} -eq 0 ]; then
+	echo No bundles detected...
+	exit 0
+fi
+
+echo
+echo Deploying bundles...
+echo
+if [ $step -gt 0 ]; then
+	if [ $step -gt ${#bundles[@]} ]; then
+		echo "Step <num> is greater than available bundles (${#bundles[@]})"
+		showhelp
+	else
+		step=${step}-1
+		deploybundle ${bundles[$step]}
+	fi
+else
+	first=1
+	for bundle in "${bundles[@]}"; do 
+		if [ $act -eq 1 ] && [ $first -ne 1 ]; then
+			waitorpause
+			first=0
+		fi
+		deploybundle $bundle
+	done
+fi
+
+echo
+echo Done
 
 exit 0
 
