@@ -23,6 +23,7 @@
 		<module>report-ui-full-bundle</module>
 <!-- 		<module>sac</module> -->
 		<module>vaadin-liferay-integration-fix</module>
+		<module>vaadin-osgi-integration-fix</module>
 		<module>vaadin-onoffswitch-bundle</module>
 <!-- 		<module>vaadin-spring</module> -->
 <!-- 		<module>yuicompressor</module> -->
@@ -62,6 +63,7 @@
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-RequiredExecutionEnvironment>JavaSE-1.8</Bundle-RequiredExecutionEnvironment>
 						<Private-Package>${private.package}</Private-Package>
+						<Require-Bundle>${require.bundle}</Require-Bundle>
 						<Import-Package>${import.package}</Import-Package>
 						<Export-Package>${export.package}</Export-Package>
 						<Bundle-Activator>${bundle.activator}</Bundle-Activator>
