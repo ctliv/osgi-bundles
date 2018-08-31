@@ -78,12 +78,7 @@
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-RequiredExecutionEnvironment>JavaSE-1.8</Bundle-RequiredExecutionEnvironment>
 						<Embed-Dependency>${original.artifact.id};inline=true</Embed-Dependency>
-<!-- 						<Embed-Transitive>true</Embed-Transitive> -->
  						<Bundle-Activator>com.vaadin.osgi.liferay.fix.Activator</Bundle-Activator>
-<!-- 						<Private-Package></Private-Package> -->
-<!-- 						<Require-Bundle></Require-Bundle> -->
-<!-- 						<Include-Resource></Include-Resource> -->
-						<!-- Changed com.liferay.portal.kernel.util;resolution:=optional;version="[7.0,8)" to com.liferay.portal.kernel.util;resolution:=optional;version="[7.0,9)"-->
 						<Import-Package>
 							com.liferay.portal.kernel.log;version="[7.0,8)",
 							com.vaadin.osgi.resources;version="[${project.version},${project.version}]",
