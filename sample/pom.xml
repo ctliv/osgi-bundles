@@ -45,7 +45,6 @@
 <!-- 						<Private-Package></Private-Package> -->
 <!-- 						<Require-Bundle></Require-Bundle> -->
 <!-- 						<Include-Resource></Include-Resource> -->
-						<!-- Changed com.liferay.portal.kernel.util;resolution:=optional;version="[7.0,8)" to com.liferay.portal.kernel.util;resolution:=optional;version="[7.0,9)"-->
 						<Import-Package>
 							*;resolution:=dynamic
 						</Import-Package>

@@ -58,13 +58,13 @@
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-RequiredExecutionEnvironment>JavaSE-1.8</Bundle-RequiredExecutionEnvironment>
 						<Embed-Dependency>${original.artifact.id};inline=true</Embed-Dependency>
-<!-- 						<Embed-Transitive>true</Embed-Transitive> -->
-<!-- 						<Bundle-Activator></Bundle-Activator> -->
-<!-- 						<Private-Package></Private-Package> -->
-<!-- 						<Require-Bundle></Require-Bundle> -->
-<!-- 						<Include-Resource></Include-Resource> -->
 						<Private-Package>VAADIN</Private-Package>
-						<!-- Changed com.liferay.portal.kernel.util;resolution:=optional;version="[7.0,8)" to com.liferay.portal.kernel.util;resolution:=optional;version="[7.0,9)"-->
+						<!-- Changed: com.liferay.portal.kernel.util;resolution:=optional;version="[7.0,8)" to version="[7.0,9)" -->
+						<!-- Added: 
+							org.hibernate.validator.*;resolution:=dynamic,
+							javax.validation.*;resolution:=dynamic,
+							*;resolution:=dynamic 
+							-->
 						<Import-Package>
 							com.vaadin.sass.internal;resolution:=optional,
 							com.liferay.portal.kernel.util;resolution:=optional;version="[7.0,9)",
@@ -151,7 +151,10 @@
 							javax.xml.namespace,org.jsoup;version="[1.8,2)",org.jsoup.nodes;version="[1.8,2)",
 							org.jsoup.parser;version="[1.8,2)",org.jsoup.select;version="[1.8,2)",
 							org.osgi.service.http;version="[1.2,2)",
-							org.w3c.dom
+							org.w3c.dom,
+							org.hibernate.validator.*;resolution:=dynamic,
+							javax.validation.*;resolution:=dynamic,
+							*;resolution:=dynamic
 						</Import-Package>
 						<Export-Package>
 							com.vaadin.annotations;uses:="com.vaadin.server,com.vaadin.shared.communication,com.vaadin.shared.ui.ui,com.vaadin.ui";version="${project.version}",
