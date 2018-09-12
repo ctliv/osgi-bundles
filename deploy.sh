@@ -9,7 +9,6 @@ scriptext="${scriptname##*.}"
 emulate=0
 step=0
 pause=5
-indent=""
 
 re_num='^[0-9]+$'
 re_inet='^.+:\/\/.+$'
@@ -78,10 +77,18 @@ loadBundles() {
 	
 	#If Inet, add to bundles
 	if [[ "$item" =~ $re_inet ]] ; then
-		echo ${indent}Found: $item
+		echo Found: $item
 		bundles+=("$item")
 		return 0
 	fi 
+	
+	#Tokenize item
+	#echo Full: $item
+	tokens=( $item )
+	params=${item:${#tokens[0]}}
+	item=${tokens[0]}
+	#echo Item: $item
+	#echo Params: $params
 	
 	#Path must be absolute
 #	echo Sourcepath is: $sourcepath
@@ -101,13 +108,13 @@ loadBundles() {
 		fi
 	fi
 	
-	local itemdir=$(dirname "$item")
-	local itembase=$(basename "$item")
+	local itemdir=$(dirname $item)
+	local itembase=$(basename $item)
 	local itemext="${itembase##*.}"
 
 	#Check for existance
 	if ! [ -f "${item}" ]; then
-		echo ${indent} Item \"${item}\" not found
+		echo Item \"${item}\" not found
 		exit 1
 	fi
 
@@ -116,13 +123,12 @@ loadBundles() {
 		#Checks if scripts was already executed
 		containsElement "$item" "${scripts[@]}"
 		if [ $? -ne 0 ]; then
-			local oldindent="$indent"
-			echo ${indent}Reading: $item
-			indent="${indent}.."
-			source "$item"
+			#echo ....Reading: $item $params
+			#source $item
+			eval . $item $params
 			#If resources are not set, shows help
 			if [ ${#resources[@]} -eq 0 ]; then
-				echo ${indent}"Script \"${item}\" does not declare resources array"
+				echo "Script \"${item}\" does not declare resources array"
 				exit 1
 			fi
 			scripts+=("$item")
@@ -130,11 +136,10 @@ loadBundles() {
 			do
 				loadBundles "$res" "$itemdir"
 			done
-			indent="$oldindent"
 		fi
 	else
 		#Il file, add to bundles
-		echo ${indent}Found: $item
+		echo Found: $item
 		bundles+=("$item")
 	fi
 	
@@ -156,6 +161,8 @@ waitorpause() {
 	if [ $pause -eq 0 ]; then
 		echo
 		read -n1 -r -p "Press any key to continue..." key
+		echo
+		echo
 	else
 		if [ $pause -gt 0 ]; then
 			echo

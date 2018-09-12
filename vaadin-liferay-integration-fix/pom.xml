@@ -5,12 +5,14 @@
 
 	<groupId>com.vaadin</groupId>
 	<artifactId>vaadin-liferay-integration-fix</artifactId>
-	<version>8.2.0</version>
+	<version>8.5.2</version>
 	<packaging>bundle</packaging>
 	
 	<properties>
 		<original.artifact.id>vaadin-liferay-integration</original.artifact.id>
-
+		
+		<buildDirectory>${project.basedir}/target-${project.version}</buildDirectory>
+		
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>	
@@ -64,6 +66,8 @@
 	</dependencies>
 	
 	<build>
+		<directory>${buildDirectory}</directory>
+	
 		<plugins>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
