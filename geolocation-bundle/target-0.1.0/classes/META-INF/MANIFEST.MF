@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1536764560834
+Build-Jdk: 1.8.0_161-1-ojdkbuild
+Built-By: toncelli
+Bundle-ManifestVersion: 2
+Bundle-Name: geolocation-bundle
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-SymbolicName: com.vaadin.addon.geolocation-bundle
+Bundle-Version: 0.1.0
+Created-By: Apache Maven Bundle Plugin
+Embed-Dependency: geolocation;inline=true
+Export-Package: com.vaadin.addon.geolocation;version="0.1.0";uses:="com.
+ vaadin.server,com.vaadin.shared,com.vaadin.ui",com.vaadin.addon.geoloca
+ tion.client;version="0.1.0";uses:="com.vaadin.addon.geolocation,com.vaa
+ din.shared.communication,com.vaadin.shared.ui"
+Import-Package: com.vaadin.addon.geolocation;resolution:=dynamic;version
+ ="[0.1,1)",com.vaadin.addon.geolocation.client;resolution:=dynamic;vers
+ ion="[0.1,1)",com.vaadin.server;resolution:=dynamic;version="[8.0,9)",c
+ om.vaadin.shared;resolution:=dynamic;version="[8.0,9)",com.vaadin.share
+ d.communication;resolution:=dynamic;version="[8.0,9)",com.vaadin.shared
+ .ui;resolution:=dynamic;version="[8.0,9)",com.vaadin.ui;resolution:=dyn
+ amic;version="[8.0,9)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-3.3.0.201609221906

@@ -50,8 +50,6 @@
 						<Import-Package>
 							!com.google.gwt.*,
 							!com.vaadin.client.*,
-							org.hibernate.validator.*;resolution:=dynamic,
-							javax.validation.*;resolution:=dynamic,
 							*;resolution:=dynamic
 						</Import-Package>
 						<Export-Package>

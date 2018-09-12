@@ -32,26 +32,6 @@
 		<bundle.activator>com.ctliv.report.Activator</bundle.activator>
 	</properties>
 
-	<!-- antlr.*;resolution:=dynamic, bsh.*;resolution:=dynamic, com.adobe.xmp.*;resolution:=dynamic, 
-		com.apple.mrj.*;resolution:=dynamic, com.jamonapi.*;resolution:=dynamic, 
-		com.lowagie.toolbox.*;resolution:=dynamic, com.opensymphony.*;resolution:=dynamic, 
-		com.sun.net.httpserver.*;resolution:=dynamic, edu.emory.mathcs.backport.java.util.concurrent.*;resolution:=dynamic, 
-		groovy.lang.*;resolution:=dynamic, groovyjarjarasm.asm.*;resolution:=dynamic, 
-		javax.ejb.*;resolution:=dynamic, javax.interceptor.*;resolution:=dynamic, 
-		junit.framework.*;resolution:=dynamic, junit.textui.*;resolution:=dynamic, 
-		jxl.*;resolution:=dynamic, mondrian.olap.*;resolution:=dynamic, mondrian.spi.*;resolution:=dynamic, 
-		net.sf.cglib.*;resolution:=dynamic, net.sourceforge.barbecue.*;resolution:=dynamic, 
-		netscape.ldap.*;resolution:=dynamic, org.apache.batik.*;resolution:=dynamic, 
-		org.apache.commons.javaflow.*;resolution:=dynamic, org.apache.commons.pool.*;resolution:=dynamic, 
-		org.apache.http.*;resolution:=dynamic, org.apache.log.*;resolution:=dynamic, 
-		org.apache.oro.*;resolution:=dynamic, org.apache.poi.*;resolution:=dynamic, 
-		org.apache.velocity.*;resolution:=dynamic, org.aspectj.*;resolution:=dynamic, 
-		org.codehaus.groovy.*;resolution:=dynamic, org.eclipse.*;resolution:=dynamic, 
-		org.hibernate.validator.*;resolution:=dynamic, org.joda.time.*;resolution:=dynamic, 
-		org.joda.convert.*;resolution:=dynamic, org.jruby.*;resolution:=dynamic, 
-		org.krysalis.barcode4j.*;resolution:=dynamic, org.mozilla.javascript.*;resolution:=dynamic, 
-		org.springframework.instrument.*;resolution:=dynamic, org.w3c.dom.svg.*;resolution:=dynamic, -->
-
 	<repositories>
 		<repository>
 			<id>vaadin-addons</id>
@@ -133,14 +113,6 @@
 			<version>6.0.0</version>
 			<scope>provided</scope>
 		</dependency>
-
-		<!-- Equinox -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.liferay</groupId> -->
-<!-- 			<artifactId>org.eclipse.osgi</artifactId> -->
-<!-- 			<version>3.10.200-20150904.172142-1-LIFERAY-CACHED</version> -->
-<!-- 			<scope>provided</scope> -->
-<!-- 		</dependency> -->
 
 	</dependencies>
 

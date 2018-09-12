@@ -3,28 +3,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.ctliv</groupId>
-		<artifactId>osgi-bundles</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
-
 	<groupId>com.vaadin.addon</groupId>
 	<artifactId>vaadin-onoffswitch-bundle</artifactId>
 	<version>1.1.0</version>
 	<packaging>bundle</packaging>
 
 	<properties>
-		<import.package>
-			!com.google.gwt.*,
-			!com.vaadin.client.*,
-			!com.google.web.bindery.event.shared,
-			!elemental.events,
-			*
-		</import.package>
-		<export.package>
-			com.vaadin.addon.onoffswitch.*;version="${project.version}"
-		</export.package>
+		<original.artifact.id>vaadin-onoffswitch</original.artifact.id>
+		
+		<buildDirectory>${project.basedir}/target-${project.version}</buildDirectory>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>	
 	</properties>
 
 	<repositories>
@@ -37,10 +28,43 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>vaadin-onoffswitch</artifactId>
+			<artifactId>${original.artifact.id}</artifactId>
 			<version>${project.version}</version>
 			<scope>provided</scope>
-		</dependency>
+		</dependency>	
 	</dependencies>
 
+	<build>
+		<directory>${buildDirectory}</directory>
+		
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>3.3.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<manifestLocation>META-INF</manifestLocation>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<Bundle-RequiredExecutionEnvironment>JavaSE-1.8</Bundle-RequiredExecutionEnvironment>
+						<Embed-Dependency>${original.artifact.id};inline=true</Embed-Dependency>
+						<Import-Package>
+							!com.google.gwt.*,
+							!com.vaadin.client.*,
+							!com.google.web.bindery.event.shared,
+							!elemental.events,
+							*;resolution:=dynamic
+						</Import-Package>
+						<Export-Package>
+							com.vaadin.addon.onoffswitch.*;version="${project.version}"
+						</Export-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>	
+	
 </project>

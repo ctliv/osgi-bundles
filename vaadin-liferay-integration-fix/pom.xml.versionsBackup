@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.vaadin</groupId>
+	<artifactId>vaadin-liferay-integration-fix</artifactId>
+	<version>8.2.0</version>
+	<packaging>bundle</packaging>
+	
+	<properties>
+		<original.artifact.id>vaadin-liferay-integration</original.artifact.id>
+		
+		<buildDirectory>${project.basedir}/target-${project.version}</buildDirectory>
+		
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>	
+
+		<liferay.kernel.version>2.0.0</liferay.kernel.version>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>${original.artifact.id}</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>	
+		
+		<!-- Liferay 7 -->
+		<dependency>
+			<groupId>com.liferay.portal</groupId>
+			<artifactId>com.liferay.portal.kernel</artifactId>
+			<version>${liferay.kernel.version}</version>
+			<scope>provided</scope>
+		</dependency>
+					
+		<!-- Vaadin Shared -->
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-shared</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- OSGi Dependencies -->
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.core</artifactId>
+			<version>6.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.annotation</artifactId>
+			<version>6.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.cmpn</artifactId>
+			<version>6.0.0</version>
+			<scope>provided</scope>
+		</dependency>		
+	</dependencies>
+	
+	<build>
+		<directory>${buildDirectory}</directory>
+	
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>3.3.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<manifestLocation>META-INF</manifestLocation>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<Bundle-RequiredExecutionEnvironment>JavaSE-1.8</Bundle-RequiredExecutionEnvironment>
+						<Embed-Dependency>${original.artifact.id};inline=true</Embed-Dependency>
+ 						<Bundle-Activator>com.vaadin.osgi.liferay.fix.Activator</Bundle-Activator>
+						<Import-Package>
+							com.liferay.portal.kernel.log;version="[7.0,8)",
+							com.vaadin.osgi.resources;version="[${project.version},${project.version}]",
+							com.vaadin.osgi.servlet;version='[${project.version},${project.version}]',
+							com.vaadin.shared;version="[${project.version},${project.version}]",
+							com.vaadin.server;version="[${project.version},${project.version}]",
+							com.vaadin.ui;version="[${project.version},${project.version}]",
+							javax.portlet;version="[2.0,3)",
+							org.osgi.framework;version="[1.8,2)",
+							org.osgi.service.component;version="[1.3,2)",
+							org.osgi.service.log;version="[1.3,2)",
+							org.osgi.util.tracker;version="[1.5,2)",		
+							*
+						</Import-Package>
+						<Export-Package>
+							com.vaadin.osgi.liferay*;version="${project.version}"
+						</Export-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>	
+
+</project>
