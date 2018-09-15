@@ -14,7 +14,7 @@ showhelp () {
 	exit 1
 }
 
-if [ $# -ne 1 ]; then
+if [ $# -gt 1 ]; then
 	echo "Illegal number of parameters"
     showhelp
 fi

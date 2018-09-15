@@ -9,5 +9,6 @@ declare -a resources=(
 "${basedir}/../vaadin-onoffswitch-bundle/vaadin-onoffswitch-bundle-1.1.0.sh"
 "${basedir}/../formcheckbox-bundle/formcheckbox-bundle-1.0.2.sh"
 "${basedir}/../report-ui-full-bundle/report-ui-full-bundle-1.1.sh"
+"${basedir}/../vaadin-sliderpanel-bundle/get.sh 2.2.0"
 )
 

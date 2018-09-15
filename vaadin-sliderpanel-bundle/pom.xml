@@ -11,6 +11,8 @@
 	<properties>
 		<original.artifact.id>vaadin-sliderpanel</original.artifact.id>
 
+		<buildDirectory>${project.basedir}/target-${project.version}</buildDirectory>
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>	
@@ -18,8 +20,8 @@
 	
 	<repositories>
 		<repository>
-		   <id>vaadin-addons</id>
-		   <url>http://maven.vaadin.com/vaadin-addons</url>
+			<id>vaadin-addons</id>
+			<url>http://maven.vaadin.com/vaadin-addons</url>
 		</repository>
 	</repositories>
 
@@ -33,6 +35,8 @@
 	</dependencies>
 	
 	<build>
+		<directory>${buildDirectory}</directory>
+		
 		<plugins>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
@@ -53,7 +57,7 @@
 							*;resolution:=dynamic
 						</Import-Package>
 						<Export-Package>
-							org.vaadin.sliderpanel;version="${project.version}"
+							org.vaadin.sliderpanel*;version="${project.version}"
 						</Export-Package>
 					</instructions>
 				</configuration>
