@@ -3,14 +3,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.beanshell</groupId>
-	<artifactId>bsh-bundle</artifactId>
-	<version>2.0b5</version>
+	<groupId>org.hibernate</groupId>
+	<artifactId>hibernate-validator-bundle</artifactId>
+	<version>5.3.6.Final</version>
 	<packaging>bundle</packaging>
 
 	<properties>
-		<original.artifact.id>bsh</original.artifact.id>
-		<bundle.version>${project.version}</bundle.version>
+		<original.artifact.id>hibernate-validator</original.artifact.id>
+		<javax.validation.version>1.1.0.Final</javax.validation.version>
 		
 		<buildDirectory>${project.basedir}/target-${project.version}</buildDirectory>
 		
@@ -42,19 +42,22 @@
 						<manifestLocation>META-INF</manifestLocation>
 						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
-						<Bundle-Version>${bundle.version}</Bundle-Version>
+						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-RequiredExecutionEnvironment>JavaSE-1.8</Bundle-RequiredExecutionEnvironment>
 						<Embed-Dependency>${original.artifact.id};inline=true</Embed-Dependency>
-<!-- 						<Embed-Transitive>true</Embed-Transitive> -->
-<!-- 						<Bundle-Activator></Bundle-Activator> -->
-<!-- 						<Private-Package></Private-Package> -->
-<!-- 						<Require-Bundle></Require-Bundle> -->
-<!-- 						<Include-Resource></Include-Resource> -->
+						<Embed-Dependency>!${original.artifact.id};scope=compile|runtime;inline=false</Embed-Dependency>
+ 						<Embed-Transitive>true</Embed-Transitive>
+						<!--
+						<Include-Resource>
+							{maven-resources}, {maven-dependencies}
+						</Include-Resource>
+						-->
 						<Import-Package>
 							*;resolution:=dynamic
 						</Import-Package>
 						<Export-Package>
-							bsh;version="${bundle.version}"
+							org.hibernate.validator*;version="${project.version}",
+							javax.validation*;version="${javax.validation.version}"
 						</Export-Package>
 					</instructions>
 				</configuration>

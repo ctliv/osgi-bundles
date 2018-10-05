@@ -20,6 +20,13 @@
 		<liferay.kernel.version>2.0.0</liferay.kernel.version>
 	</properties>
 	
+	<repositories>
+		<repository>
+			<id>Vaadin Prereleases</id>
+			<url>http://maven.vaadin.com/vaadin-prereleases/</url>
+		</repository>
+	</repositories>
+	
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>

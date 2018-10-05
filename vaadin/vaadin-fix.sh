@@ -1,7 +1,9 @@
 #!/bin/bash
 
-script=$(basename ${BASH_SOURCE[0]})
-scriptname="${script%.*}"
+#script=$(basename ${BASH_SOURCE[0]})
+#scriptname="${script%.*}"
+
+basedir=$(dirname "$0")
 
 if [ $# -ne 1 ]; then
 	exit 1
