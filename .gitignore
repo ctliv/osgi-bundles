@@ -5,7 +5,7 @@
 !\.gitignore
 
 # Maven
-**/target/
+**/target*/
 
 # Windows
 **/Thumbs.db

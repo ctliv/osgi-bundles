@@ -12,6 +12,7 @@
 		<original.artifact.id>hibernate-validator</original.artifact.id>
 		<javax.validation.version>1.1.0.Final</javax.validation.version>
 		<jboss.logging.version>3.3.0.Final</jboss.logging.version>
+		<javax.el.version>3.0.0</javax.el.version>
 		
 		<buildDirectory>${project.basedir}/target-${project.version}</buildDirectory>
 		
@@ -27,6 +28,11 @@
 			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>	
+		<dependency>
+		   <groupId>org.glassfish</groupId>
+		   <artifactId>javax.el</artifactId>
+		   <version>${javax.el.version}</version>
+		</dependency>		
 	</dependencies>
 	
 	<build>
@@ -59,7 +65,9 @@
 						<Export-Package>
 							org.hibernate.validator*;version="${project.version}",
 							javax.validation*;version="${javax.validation.version}",
-							org.jboss.logging;version="${jboss.logging.version}"
+							org.jboss.logging;version="${jboss.logging.version}",
+							com.sun.el*;version="${javax.el.version}",
+							javax.el;version="${javax.el.version}"
 						</Export-Package>
 					</instructions>
 				</configuration>
