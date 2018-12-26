@@ -1,11 +1,13 @@
 # Hidden folders
 **/\.*/
+
 # Hidden files (except ".gitignore")
 **/\.*
 !\.gitignore
 
 # Maven
-**/target*/
+**/target/
+**/target-*/
 
 # Windows
 **/Thumbs.db
