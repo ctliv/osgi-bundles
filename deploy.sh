@@ -6,7 +6,7 @@ scriptdir=$(dirname "$0")
 scriptname=$(basename "$0")
 scriptext="${scriptname##*.}"
 
-emulate=0
+dryrun=0
 step=0
 pause=5
 
@@ -21,15 +21,15 @@ showhelp () {
 	echo "USAGE: $scriptname [options] target item [item...]"
 	echo "OPTIONS:"
 	echo "    -s <num>   Deploy step <num> (default is all steps)"
-	echo "    -e         Emulate (does not deploy)"
+	echo "    -d         Dry run (does not deploy)"
 	echo "    -p <num>   Pause (seconds) between steps (default=5, 0=manual)"
 	echo
 	exit 1
 }
 
-while getopts "ep:s:" opt; do
+while getopts "dp:s:" opt; do
 	case "$opt" in
-	e)	emulate=1
+	d)	dryrun=1
 		;;
 	p)	pause=$OPTARG
 		;;
@@ -199,10 +199,10 @@ if [ $step -gt 0 ]; then
 	fi
 else
 	for bundle in "${bundles[@]}"; do 
-		if [ $emulate -eq 0 ] && [ $deployed -gt 0 ]; then
+		if [ $dryrun -eq 0 ] && [ $deployed -gt 0 ]; then
 			waitorpause
 		fi
-		if [ $emulate -eq 0 ]; then
+		if [ $dryrun -eq 0 ]; then
 			deploybundle $bundle
 			((deployed++))
 		fi
