@@ -1,7 +1,6 @@
 package com.ctliv.report;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -20,7 +19,11 @@ public class Activator implements BundleActivator {
 	Properties props = readProperties();
 	
 	private final String JR_CLASSPATH = "net.sf.jasperreports.compiler.classpath";
+	
 	String defaultClassPath = null;
+	String jrLibPath = null;
+	
+	private final String JR_DEFAULT_VERSION = "6.3.0";
 	
 	@Override
 	public void start(BundleContext context) throws Exception {
@@ -44,8 +47,9 @@ public class Activator implements BundleActivator {
 		} catch (Exception e) { }
 		log.info("class file dir: " + jrLibDir);
 		
-		String jrLibPath = jrLibDir + 
-				"jasperreports-" + props.getProperty("jasperreports.version") + ".jar";
+		String jrVersion = props.getProperty("jasperreports.version");
+		jrLibPath = jrLibDir + 
+				"jasperreports-" + (jrVersion == null ? JR_DEFAULT_VERSION : jrVersion) + ".jar";
 		log.info("class file path: " + jrLibPath);
 		
 		defaultClassPath = DefaultJasperReportsContext.getInstance().getProperty(JR_CLASSPATH);
@@ -57,7 +61,12 @@ public class Activator implements BundleActivator {
 
 	@Override
 	public void stop(BundleContext context) throws Exception {		
-		DefaultJasperReportsContext.getInstance().setProperty(JR_CLASSPATH,defaultClassPath);
+		//DefaultJasperReportsContext.getInstance().setProperty(JR_CLASSPATH,defaultClassPath);
+		
+		String classPath = DefaultJasperReportsContext.getInstance().getProperty(JR_CLASSPATH);
+		//Removes added class path
+		classPath.replace(":" + jrLibPath, "");
+		DefaultJasperReportsContext.getInstance().setProperty(JR_CLASSPATH,classPath);
 	}
 	
 	private Properties readProperties() {
@@ -67,12 +76,12 @@ public class Activator implements BundleActivator {
 		try {
 		    inputStream = classLoader.getResourceAsStream("app.properties");
 		    p.load( inputStream );
-		} catch ( IOException e ) {
+		} catch ( Exception e ) {
 		    log.error( e.getMessage(), e );
 		} finally {
 			try {
 				inputStream.close();
-			} catch (IOException e) { }
+			} catch (Exception e) { }
 		}
 		return p;
 	}
