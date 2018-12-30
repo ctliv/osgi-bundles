@@ -75,7 +75,10 @@ public class Activator implements BundleActivator {
 		InputStream inputStream = null;
 		try {
 		    inputStream = classLoader.getResourceAsStream("app.properties");
-		    p.load( inputStream );
+		    if (inputStream != null) 
+		    	p.load( inputStream );
+		    else
+		    	log.warn("InputStream for app.properties is null");
 		} catch ( Exception e ) {
 		    log.error( e.getMessage(), e );
 		} finally {
