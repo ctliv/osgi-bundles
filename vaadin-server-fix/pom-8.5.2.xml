@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.vaadin</groupId>
+	<artifactId>vaadin-server-fix</artifactId>
+	<version>8.5.2</version>
+	<packaging>bundle</packaging>
+	<!-- <packaging>jar</packaging> -->
+
+	<properties>
+		<original.artifact.id>vaadin-server</original.artifact.id>
+		<bundle.version>${project.version}</bundle.version>
+		
+		<buildDirectory>${project.basedir}/target-${project.version}</buildDirectory>
+		
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>	
+	</properties>
+	
+	<repositories>
+		<repository>
+			<id>Vaadin Prereleases</id>
+			<url>http://maven.vaadin.com/vaadin-prereleases/</url>
+		</repository>
+	</repositories>
+	
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>${original.artifact.id}</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>	
+	</dependencies>
+	
+	<build>
+		<directory>${buildDirectory}</directory>
+		
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+		<plugins>
+
+			<!--
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-maven-plugin</artifactId>
+				<version>3.3.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>bnd-process</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			-->
+		
+			<!-- Changed: com.liferay.portal.kernel.util;resolution:=optional;version="[7.0,8)" to version="[7.0,9)" -->
+			<!-- Added to import packages: 
+				org.hibernate.validator.*;resolution:=dynamic,
+				javax.validation.*;resolution:=dynamic,
+				*;resolution:=dynamic 
+				-->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>3.3.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<manifestLocation>META-INF</manifestLocation>
+						<Bundle-Name>Vaadin Server</Bundle-Name>
+						<Bundle-SymbolicName>com.vaadin.server</Bundle-SymbolicName>
+						<Bundle-Version>${bundle.version}</Bundle-Version>
+						<Bundle-RequiredExecutionEnvironment>JavaSE-1.8</Bundle-RequiredExecutionEnvironment>
+						<Embed-Dependency>${original.artifact.id};inline=true</Embed-Dependency>
+						<Private-Package>VAADIN</Private-Package>
+						<Import-Package>
+							com.googlecode.gentyref;version="[1.2,2)",
+							com.liferay.portal.kernel.util;resolution:=optional;version="[7.0,9)",
+							com.vaadin.osgi.resources;version="[${bundle.version},${bundle.version}]",
+							com.vaadin.sass.internal;resolution:=optional,
+							com.vaadin.shared;version="[${bundle.version},${bundle.version}]",
+							com.vaadin.shared.*;version="[${bundle.version},${bundle.version}]",
+							elemental.json;version="[8.2,9)",
+							elemental.json.impl;version="[8.2,9)",
+							javax.portlet;resolution:=optional;version="[2.0,3)",
+							javax.portlet.filter;resolution:=optional;version="[2.0,3)",
+							javax.servlet;version="[3.0,4)",
+							javax.servlet.annotation;version="[3.0,4)",
+							javax.servlet.http;version="[3.0,4)",
+							javax.xml.namespace,							
+							org.atmosphere.*;resolution:=optional;version="2.4.30.vaadin1",
+							org.jsoup;version="[1.8,2)",
+							org.jsoup.*;version="[1.8,2)",
+							org.osgi.service.http;version="[1.2,2)",
+							org.w3c.dom,
+							javax.validation.*;version="[1.1.0.Final,1.1.0.Final]",
+							org.hibernate.validator.*;version="[5.3.6.Final,5.3.6.Final]",
+							org.jboss.logging;version="[3.3.0.Final,3.3.0.Final]",
+							*;resolution:=dynamic
+						</Import-Package>
+						<Export-Package>
+							com.vaadin.annotations;uses:="com.vaadin.server,com.vaadin.shared.communication,com.vaadin.shared.ui.ui,com.vaadin.ui";version="${bundle.version}",
+							com.vaadin.data;uses:="com.vaadin.data.provider,com.vaadin.event,com.vaadin.event.selection,com.vaadin.server,com.vaadin.shared,com.vaadin.shared.ui,com.vaadin.ui";version="${bundle.version}",
+							com.vaadin.data.converter;uses:="com.vaadin.data";version="${bundle.version}",
+							com.vaadin.data.provider;uses:="com.vaadin.data,com.vaadin.server,com.vaadin.shared,com.vaadin.shared.communication,com.vaadin.shared.data,com.vaadin.shared.data.sort,com.vaadin.shared.extension.datacommunicator,com.vaadin.ui,elemental.json";version="${bundle.version}",
+							com.vaadin.data.util;version="${bundle.version}",
+							com.vaadin.data.validator;uses:="com.vaadin.data,javax.validation";version="${bundle.version}",
+							com.vaadin.event;uses:="com.vaadin.data.provider,com.vaadin.server,com.vaadin.shared,com.vaadin.shared.communication,com.vaadin.ui";version="${bundle.version}",
+							com.vaadin.event.dd;uses:="com.vaadin.event,com.vaadin.event.dd.acceptcriteria,com.vaadin.shared,com.vaadin.ui";version="${bundle.version}",
+							com.vaadin.event.dd.acceptcriteria;uses:="com.vaadin.event.dd,com.vaadin.server,com.vaadin.ui";version="${bundle.version}",
+							com.vaadin.event.selection;uses:="com.vaadin.data,com.vaadin.event,com.vaadin.ui";version="${bundle.version}",
+							com.vaadin.icons;uses:="com.vaadin.server";version="${bundle.version}",
+							com.vaadin.navigator;uses:="com.vaadin.server,com.vaadin.shared,com.vaadin.ui";version="${bundle.version}",
+							com.vaadin.server;uses:="com.vaadin.data,com.vaadin.data.provider,com.vaadin.event,com.vaadin.shared,com.vaadin.shared.communication,com.vaadin.shared.extension.filedownloader,com.vaadin.shared.extension.responsive,com.vaadin.shared.ui,com.vaadin.shared.ui.ui,com.vaadin.ui,elemental.json,javax.portlet,javax.portlet.filter,javax.servlet,javax.servlet.http,javax.xml.namespace,org.jsoup.nodes";version="${bundle.version}",
+							com.vaadin.server.communication;uses:="com.vaadin.server,com.vaadin.shared.communication,com.vaadin.ui,elemental.json,javax.servlet,javax.servlet.annotation,org.atmosphere.cpr,org.atmosphere.handler";version="${bundle.version}",
+							com.vaadin.server.osgi;version="${bundle.version}",
+							com.vaadin.server.themeutils;version="${bundle.version}",
+							com.vaadin.server.widgetsetutils;version="${bundle.version}",
+							com.vaadin.ui;uses:="com.vaadin.data,com.vaadin.data.provider,com.vaadin.data.validator,com.vaadin.event,com.vaadin.event.dd,com.vaadin.event.selection,com.vaadin.navigator,com.vaadin.server,com.vaadin.server.communication,com.vaadin.shared,com.vaadin.shared.communication,com.vaadin.shared.customcomponent,com.vaadin.shared.data.sort,com.vaadin.shared.extension.abstractlisting,com.vaadin.shared.extension.javascriptmanager,com.vaadin.shared.ui,com.vaadin.shared.ui.absolutelayout,com.vaadin.shared.ui.abstractlisting,com.vaadin.shared.ui.abstractmultiselect,com.vaadin.shared.ui.accordion,com.vaadin.shared.ui.audio,com.vaadin.shared.ui.browserframe,com.vaadin.shared.ui.button,com.vaadin.shared.ui.checkbox,com.vaadin.shared.ui.colorpicker,com.vaadin.shared.ui.combobox,com.vaadin.shared.ui.composite,com.vaadin.shared.ui.csslayout,com.vaadin.shared.ui.customfield,com.vaadin.shared.ui.customlayout,com.vaadin.shared.ui.datefield,com.vaadin.shared.ui.dd,com.vaadin.shared.ui.draganddropwrapper,com.vaadin.shared.ui.embedded,com.vaadin.shared.ui.flash,com.vaadin.shared.ui.grid,com.vaadin.shared.ui.grid.renderers,com.vaadin.shared.ui.gridlayout,com.vaadin.shared.ui.image,com.vaadin.shared.ui.label,com.vaadin.shared.ui.link,com.vaadin.shared.ui.listselect,com.vaadin.shared.ui.loginform,com.vaadin.shared.ui.menubar,com.vaadin.shared.ui.nativeselect,com.vaadin.shared.ui.notification,com.vaadin.shared.ui.optiongroup,com.vaadin.shared.ui.orderedlayout,com.vaadin.shared.ui.panel,com.vaadin.shared.ui.passwordfield,com.vaadin.shared.ui.popupview,com.vaadin.shared.ui.progressindicator,com.vaadin.shared.ui.richtextarea,com.vaadin.shared.ui.slider,com.vaadin.shared.ui.splitpanel,com.vaadin.shared.ui.tabsheet,com.vaadin.shared.ui.textarea,com.vaadin.shared.ui.textfield,com.vaadin.shared.ui.tree,com.vaadin.shared.ui.treegrid,com.vaadin.shared.ui.twincolselect,com.vaadin.shared.ui.ui,com.vaadin.shared.ui.upload,com.vaadin.shared.ui.video,com.vaadin.shared.ui.window,com.vaadin.ui.components.grid,com.vaadin.ui.declarative,com.vaadin.ui.dnd,com.vaadin.ui.renderers,elemental.json,org.jsoup.nodes,org.jsoup.select";version="${bundle.version}",
+							com.vaadin.ui.components.colorpicker;uses:="com.vaadin.data,com.vaadin.shared,com.vaadin.shared.communication,com.vaadin.shared.ui.colorpicker,com.vaadin.ui";version="${bundle.version}",
+							com.vaadin.ui.components.grid;uses:="com.vaadin.data,com.vaadin.data.provider,com.vaadin.event,com.vaadin.event.selection,com.vaadin.server,com.vaadin.shared,com.vaadin.shared.communication,com.vaadin.shared.data.sort,com.vaadin.shared.extension.abstractlisting,com.vaadin.shared.ui.dnd,com.vaadin.shared.ui.grid,com.vaadin.shared.ui.grid.editor,com.vaadin.shared.ui.treegrid,com.vaadin.ui,com.vaadin.ui.declarative,com.vaadin.ui.dnd,com.vaadin.ui.dnd.event,elemental.json,org.jsoup.nodes";version="${bundle.version}",
+							com.vaadin.ui.declarative;uses:="com.vaadin.data,com.vaadin.shared,com.vaadin.ui,org.jsoup.nodes";version="${bundle.version}",
+							com.vaadin.ui.declarative.converters;uses:="com.vaadin.data,com.vaadin.event,com.vaadin.server";version="${bundle.version}",
+							com.vaadin.ui.dnd;uses:="com.vaadin.server,com.vaadin.shared,com.vaadin.shared.communication,com.vaadin.shared.ui.dnd,com.vaadin.shared.ui.dnd.criteria,com.vaadin.ui,com.vaadin.ui.dnd.event";version="${bundle.version}",
+							com.vaadin.ui.dnd.event;uses:="com.vaadin.event,com.vaadin.shared,com.vaadin.shared.ui.dnd,com.vaadin.ui,com.vaadin.ui.dnd";version="${bundle.version}",
+							com.vaadin.ui.doc-files;version="${bundle.version}",
+							com.vaadin.ui.renderers;uses:="com.vaadin.event,com.vaadin.server,com.vaadin.shared,com.vaadin.shared.communication,com.vaadin.shared.ui.grid.renderers,com.vaadin.ui,elemental.json";version="${bundle.version}",
+							com.vaadin.ui.themes;version="${bundle.version}",
+							com.vaadin.util;uses:="com.vaadin.server,com.vaadin.ui";version="${bundle.version}"
+						</Export-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+</project>

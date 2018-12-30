@@ -4,7 +4,7 @@ basedir=$(dirname "$0")
 
 declare -a resources=(
 "${basedir}/../hibernate-validator-bundle/get.sh 5.3.6.Final"
-"${basedir}/../vaadin/vaadin.sh 8.6.3"
+"${basedir}/../vaadin/vaadin-fix-8.6.3.sh"
 "${basedir}/../autocomplete-bundle/get.sh 0.2.4"
 "${basedir}/../geolocation-bundle/get.sh 0.1.0"
 "${basedir}/../formcheckbox-bundle/get.sh 1.0.2"
