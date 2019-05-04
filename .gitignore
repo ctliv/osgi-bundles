@@ -12,10 +12,13 @@
 # Windows
 **/Thumbs.db
 
-# IntelliJ IDEA
+# IDEs
 **/*\.iml
 **/*\.ipr
 **/*\.iws
+**/*\.project
+**/*\.settings/
+**/*\.vscode/
 
 # VAADIN
 **/src/main/webapp/VAADIN/widgetsets/
