@@ -4,32 +4,23 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.ctliv</groupId>
-		<artifactId>osgi-bundles</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
-
 	<groupId>org.vaadin.reports</groupId>
 	<artifactId>report-ui-full-bundle</artifactId>
 	<version>1.1</version>
 	<packaging>bundle</packaging>
 
 	<properties>
-		<jasperreports.version>6.3.0</jasperreports.version>
-
-		<import.package>
-			!com.google.gwt.*,
-			!com.vaadin.client.*,
-			*;resolution:=dynamic
-		</import.package>
-		<export.package>
-			com.ctliv.report.*;version="${project.version}",
-			org.vaadin.reports.*;version="${project.version}",
-			ar.com.fdvs.dj.*;version="5.1.0",
-			net.sf.jasperreports.*;version="${jasperreports.version}"
-		</export.package>
+		<original.artifact.id>report-ui</original.artifact.id>
+		<bundle.version>${project.version}</bundle.version>
 		<bundle.activator>com.ctliv.report.Activator</bundle.activator>
+		
+		<jasperreports.version>6.3.0</jasperreports.version>
+		
+		<buildDirectory>${project.basedir}/target-${project.version}</buildDirectory>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>	
 	</properties>
 
 	<repositories>
@@ -43,19 +34,18 @@
 			<url>https://repository.liferay.com/nexus/content/groups/public/</url>
 		</repository>
 	</repositories>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>report-ui</artifactId>
+			<artifactId>${original.artifact.id}</artifactId>
 			<version>${project.version}</version>
-			<!-- <scope>provided</scope> -->
-		</dependency>
+		</dependency>	
 
 		<dependency>
 			<groupId>ar.com.fdvs</groupId>
 			<artifactId>DynamicJasper-core-fonts</artifactId>
-			<version>1.0</version>
+			<version>2.0</version>
 		</dependency>
 
 		<dependency>
@@ -68,7 +58,6 @@
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>${jasperreports.version}</version>
-			<!-- <scope>provided</scope> -->
 		</dependency>
 
 		<dependency>
@@ -76,29 +65,6 @@
 			<artifactId>poi</artifactId>
 			<version>3.14</version>
 		</dependency>
-
-<!-- 		<dependency> -->
-<!-- 			<groupId>xml-apis</groupId> -->
-<!-- 			<artifactId>xml-apis</artifactId> -->
-<!-- 			<version>1.4.01</version> -->
-<!-- 		</dependency> -->
-
-		<!-- <dependency> -->
-		<!-- <groupId>org.eclipse.jdt</groupId> -->
-		<!-- <artifactId>core</artifactId> -->
-		<!-- <version>3.1.1</version> -->
-		<!-- </dependency> -->
-
-		<!-- <dependency> <groupId>joda-time</groupId> <artifactId>joda-time</artifactId> 
-			<version>2.9.9</version> </dependency> -->
-
-		<!-- Liferay 7 -->
-		<!-- <dependency> -->
-		<!-- <groupId>com.liferay.portal</groupId> -->
-		<!-- <artifactId>com.liferay.portal.kernel</artifactId> -->
-		<!-- <version>2.0.0</version> -->
-		<!-- <scope>provided</scope> -->
-		<!-- </dependency> -->
 
 		<!-- OSGi Dependencies -->
 		<dependency>
@@ -121,5 +87,58 @@
 		</dependency>
 
 	</dependencies>
+	
+	<build>
+		<directory>${buildDirectory}</directory>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+		<plugins>
+<!--			<plugin> -->
+<!--				<groupId>org.apache.maven.plugins</groupId> -->
+<!--				<artifactId>maven-compiler-plugin</artifactId> -->
+<!--				<version>3.1</version> -->
+<!--			</plugin> -->
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>4.0.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<manifestLocation>META-INF</manifestLocation>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Version>${bundle.version}</Bundle-Version>
+						<Bundle-RequiredExecutionEnvironment>JavaSE-1.8</Bundle-RequiredExecutionEnvironment>
+						<Bundle-Activator>${bundle.activator}</Bundle-Activator>
+						<Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
+						<Embed-Transitive>true</Embed-Transitive>
+<!--						<Embed-Dependency>${original.artifact.id};inline=true</Embed-Dependency> -->
+<!-- 						<Private-Package></Private-Package> -->
+<!-- 						<Require-Bundle></Require-Bundle> -->
+<!-- 						<Include-Resource></Include-Resource> -->
+						<Import-Package>
+							!com.google.gwt.*,
+							!com.vaadin.client.*,
+							*;resolution:=dynamic
+						</Import-Package>
+						<Export-Package>
+							com.ctliv.report.*;version="${project.version}",
+							org.vaadin.reports.*;version="${project.version}",
+							ar.com.fdvs.dj.*;version="5.1.0",
+							net.sf.jasperreports.*;version="${jasperreports.version}"
+						</Export-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

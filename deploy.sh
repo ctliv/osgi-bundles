@@ -150,9 +150,11 @@ deploybundle() {
 		echo Copying: $1
 		cp "$1" "$target"
 	else
+		cd "$scriptabs"
 		echo Downloading: $1
-		cd "$target"
 		curl -J -O -k -L -C - "$1"
+		echo Deploying...
+		mv $(basename "$1") "$target"
 		cd -
 	fi
 }

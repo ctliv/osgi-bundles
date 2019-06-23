@@ -2,20 +2,21 @@ package com.vaadin.osgi.liferay.fix;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.vaadin.osgi.resources.OsgiVaadinResources;
 import com.vaadin.osgi.resources.VaadinResourceService;
 
 public class Activator implements BundleActivator {
 	
-	private Log log = LogFactoryUtil.getLog(this.getClass());
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Override
 	public void start(BundleContext context) throws Exception {
 		VaadinResourceService service = null;
-		while (true) {
+		int count = 0;
+		while (count < 10) {
 			try {
 				service = OsgiVaadinResources.getService();
 			} catch (Exception e) {
@@ -27,6 +28,7 @@ public class Activator implements BundleActivator {
 			}
 			log.info("[Vaadin Liferay Integration Fix] Waiting 5 seconds...");
 			Thread.sleep(5000);
+			count++;
 		}
 	}
 

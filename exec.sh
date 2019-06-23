@@ -6,10 +6,9 @@ scriptdir=$(dirname "$0")
 scriptname=$(basename "$0")
 scriptext="${scriptname##*.}"
 
-emulate=0
+dryrun=0
 step=0
 pause=5
-indent=""
 
 re_num='^[0-9]+$'
 re_inet='^.+:\/\/.+$'
@@ -19,18 +18,18 @@ bundles=()
 
 showhelp () {
 	echo
-	echo "USAGE: $scriptname [options] target item [item...]"
+	echo "USAGE: $scriptname [options] script item [item...]"
 	echo "OPTIONS:"
 	echo "    -s <num>   Deploy step <num> (default is all steps)"
-	echo "    -e         Emulate (does not deploy)"
+	echo "    -d         Dry run (does not deploy)"
 	echo "    -p <num>   Pause (seconds) between steps (default=5, 0=manual)"
 	echo
 	exit 1
 }
 
-while getopts "ep:s:" opt; do
+while getopts "dp:s:" opt; do
 	case "$opt" in
-	e)	emulate=1
+	d)	dryrun=1
 		;;
 	p)	pause=$OPTARG
 		;;
@@ -51,14 +50,14 @@ if ! [[ "$pause" =~ $re_num ]] ; then
 	showhelp
 fi
 
-if [ $# -lt 2 ]; then
+if [[ $# -lt 2 ]]; then
 	echo "Illegal number of parameters"
     showhelp
 fi
 
 target="$1"
-if ! [ -d "$target" ]; then
-	echo "Target is not a folder"
+if ! [[ -f "$target" && -x "$target" ]]; then
+	echo "Script is not executable"
 	showhelp
 fi
 
@@ -78,7 +77,7 @@ loadBundles() {
 	
 	#If Inet, add to bundles
 	if [[ "$item" =~ $re_inet ]] ; then
-		echo ${indent}Found: $item
+		echo Found: $item
 		bundles+=("$item")
 		return 0
 	fi 
@@ -115,7 +114,7 @@ loadBundles() {
 
 	#Check for existance
 	if ! [ -f "${item}" ]; then
-		echo ${indent} Item \"${item}\" not found
+		echo Item \"${item}\" not found
 		exit 1
 	fi
 
@@ -124,14 +123,12 @@ loadBundles() {
 		#Checks if scripts was already executed
 		containsElement "$item" "${scripts[@]}"
 		if [ $? -ne 0 ]; then
-			local oldindent="$indent"
-			echo ${indent}Reading: $item $params
-			indent="${indent}.."
+			#echo ....Reading: $item $params
 			#source $item
 			eval . $item $params
 			#If resources are not set, shows help
 			if [ ${#resources[@]} -eq 0 ]; then
-				echo ${indent}"Script \"${item}\" does not declare resources array"
+				echo "Script \"${item}\" does not declare resources array"
 				exit 1
 			fi
 			scripts+=("$item")
@@ -139,14 +136,17 @@ loadBundles() {
 			do
 				loadBundles "$res" "$itemdir"
 			done
-			indent="$oldindent"
 		fi
 	else
 		#Il file, add to bundles
-		echo ${indent}Found: $item
+		echo Found: $item
 		bundles+=("$item")
 	fi
 	
+}
+
+execbundle() {
+	source "$target" $1
 }
 
 deploybundle() {
@@ -154,9 +154,11 @@ deploybundle() {
 		echo Copying: $1
 		cp "$1" "$target"
 	else
+		cd "$scriptabs"
 		echo Downloading: $1
-		cd "$target"
 		curl -J -O -k -L -C - "$1"
+		echo Deploying...
+		mv $(basename "$1") "$target"
 		cd -
 	fi
 }
@@ -165,6 +167,8 @@ waitorpause() {
 	if [ $pause -eq 0 ]; then
 		echo
 		read -n1 -r -p "Press any key to continue..." key
+		echo
+		echo
 	else
 		if [ $pause -gt 0 ]; then
 			echo
@@ -188,7 +192,7 @@ if [ ${#bundles[@]} -eq 0 ]; then
 fi
 
 echo
-echo Deploying bundles...
+echo Executing action on bundles...
 echo
 deployed=0
 if [ $step -gt 0 ]; then
@@ -197,15 +201,15 @@ if [ $step -gt 0 ]; then
 		showhelp
 	else
 		((step--))
-		deploybundle ${bundles[$step]}
+		execbundle ${bundles[$step]}
 	fi
 else
 	for bundle in "${bundles[@]}"; do 
-		if [ $emulate -eq 0 ] && [ $deployed -gt 0 ]; then
+		if [ $dryrun -eq 0 ] && [ $deployed -gt 0 ]; then
 			waitorpause
 		fi
-		if [ $emulate -eq 0 ]; then
-			deploybundle $bundle
+		if [ $dryrun -eq 0 ]; then
+			execbundle $bundle
 			((deployed++))
 		fi
 	done

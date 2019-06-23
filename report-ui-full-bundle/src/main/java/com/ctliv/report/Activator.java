@@ -30,6 +30,14 @@ public class Activator implements BundleActivator {
 		
 		Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
 		
+//		try {
+//			log.trace("Retrieving available fonts:");
+//			String[] names = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();		
+//			log.trace("Fonts found: " + Arrays.asList(names).stream().collect(Collectors.joining(", ")));
+//		} catch(Exception e) {
+//			log.debug("Unable to query available fonts", e);
+//		}
+				
 		try {
 			JRStyledTextParser parser = JRStyledTextParser.getInstance();
 			log.info("Parser is: " + parser);

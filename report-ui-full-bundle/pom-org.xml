@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.ctliv</groupId>
+		<artifactId>osgi-bundles</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<groupId>org.vaadin.reports</groupId>
+	<artifactId>report-ui-full-bundle</artifactId>
+	<version>1.1</version>
+	<packaging>bundle</packaging>
+
+	<properties>
+		<jasperreports.version>6.3.0</jasperreports.version>
+
+		<import.package>
+			!com.google.gwt.*,
+			!com.vaadin.client.*,
+			*;resolution:=dynamic
+		</import.package>
+		<export.package>
+			com.ctliv.report.*;version="${project.version}",
+			org.vaadin.reports.*;version="${project.version}",
+			ar.com.fdvs.dj.*;version="5.1.0",
+			net.sf.jasperreports.*;version="${jasperreports.version}"
+		</export.package>
+		<bundle.activator>com.ctliv.report.Activator</bundle.activator>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>vaadin-addons</id>
+			<url>http://maven.vaadin.com/vaadin-addons</url>
+		</repository>
+		<repository>
+			<id>liferay-public-releases</id>
+			<name>Liferay Public Releases</name>
+			<url>https://repository.liferay.com/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>report-ui</artifactId>
+			<version>${project.version}</version>
+			<!-- <scope>provided</scope> -->
+		</dependency>
+
+		<dependency>
+			<groupId>ar.com.fdvs</groupId>
+			<artifactId>DynamicJasper-core-fonts</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>${jasperreports.version}</version>
+			<!-- <scope>provided</scope> -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.14</version>
+		</dependency>
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>xml-apis</groupId> -->
+<!-- 			<artifactId>xml-apis</artifactId> -->
+<!-- 			<version>1.4.01</version> -->
+<!-- 		</dependency> -->
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.eclipse.jdt</groupId> -->
+		<!-- <artifactId>core</artifactId> -->
+		<!-- <version>3.1.1</version> -->
+		<!-- </dependency> -->
+
+		<!-- <dependency> <groupId>joda-time</groupId> <artifactId>joda-time</artifactId> 
+			<version>2.9.9</version> </dependency> -->
+
+		<!-- Liferay 7 -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.liferay.portal</groupId> -->
+		<!-- <artifactId>com.liferay.portal.kernel</artifactId> -->
+		<!-- <version>2.0.0</version> -->
+		<!-- <scope>provided</scope> -->
+		<!-- </dependency> -->
+
+		<!-- OSGi Dependencies -->
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.core</artifactId>
+			<version>6.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.annotation</artifactId>
+			<version>6.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.cmpn</artifactId>
+			<version>6.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+	</dependencies>
+
+</project>
