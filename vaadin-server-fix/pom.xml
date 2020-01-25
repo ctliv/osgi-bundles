@@ -5,7 +5,7 @@
 
 	<groupId>com.vaadin</groupId>
 	<artifactId>vaadin-server-fix</artifactId>
-	<version>8.8.3</version>
+	<version>8.9.1</version>
 	<packaging>bundle</packaging>
 	<!-- <packaging>jar</packaging> -->
 
